@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="InputErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#DD4A52</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:fontFamily">@font/sf_display_regular</item>
+    </style>
+
+    <style name="InfoDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/dialogWindowBackgroundColor</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

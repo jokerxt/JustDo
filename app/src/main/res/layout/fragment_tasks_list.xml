@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/termsConditionsHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="27dp"
+            android:fontFamily="@font/sf_display_medium"
+            android:letterSpacing="0.01"
+            android:text="@string/to_do_list"
+            android:textColor="@color/headerFragmentTextColor"
+            android:textSize="@dimen/headerFragmentTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/toDoFilterIcon"
+            android:layout_width="27dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="4dp"
+            android:paddingStart="5dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toBottomOf="@+id/termsConditionsHeaderText"
+            app:layout_constraintEnd_toStartOf="@+id/toDoMenuIcon"
+            app:layout_constraintTop_toTopOf="@+id/termsConditionsHeaderText"
+            app:srcCompat="@drawable/ic_filter" />
+
+        <ImageView
+            android:id="@+id/toDoMenuIcon"
+            android:layout_width="27dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="4dp"
+            android:paddingStart="5dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toBottomOf="@+id/termsConditionsHeaderText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/termsConditionsHeaderText"
+            app:srcCompat="@drawable/ic_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <ImageView
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/fab"
+        app:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        app:srcCompat="@drawable/ic_plus" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

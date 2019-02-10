@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/accessingAgreeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/accessing_agree"
+        android:textAlignment="center"
+        android:textColor="@color/accessingAgreeTextColor"
+        android:textSize="@dimen/accessingAgreeTextSize" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/termsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/terms_conditions"
+            android:textAlignment="center"
+            android:textColor="@color/termsPrivacyTextColor"
+            android:textSize="@dimen/accessingAgreeTextSize" />
+
+        <TextView
+            android:id="@+id/andTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/and"
+            android:textAlignment="center"
+            android:textColor="@color/accessingAgreeTextColor"
+            android:textSize="@dimen/accessingAgreeTextSize" />
+
+        <TextView
+            android:id="@+id/privacyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/privacy_policy"
+            android:textAlignment="center"
+            android:textColor="@color/termsPrivacyTextColor"
+            android:textSize="@dimen/accessingAgreeTextSize" />
+    </LinearLayout>
+
+</LinearLayout>

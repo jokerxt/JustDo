@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="27dp" />
+
+    <!---->
+
+    <ImageView
+        android:id="@+id/termsConditionsArrowBack"
+        android:layout_width="6dp"
+        android:layout_height="13dp"
+        app:layout_constraintBottom_toBottomOf="@+id/termsConditionsHeaderText"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="@+id/termsConditionsHeaderText"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/termsConditionsHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/sf_display_medium"
+        android:letterSpacing="0.01"
+        android:text="@string/terms_conditions"
+        android:textColor="@color/headerFragmentTextColor"
+        android:textSize="@dimen/headerFragmentTextSize"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="27dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/termsConditionsHeaderText">
+
+        <TextView
+            android:id="@+id/termsConditionsContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web|email"
+            android:fontFamily="@font/sf_display_regular"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="4dp"
+            android:paddingBottom="10dp"
+            android:textColor="#1F1C1C"
+            android:textColorLink="#1F1C1C"
+            android:textSize="15sp" />
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

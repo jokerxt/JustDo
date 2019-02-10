@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">JustDo</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="accessing_agree">By accessing your account, you agree to our</string>
+    <string name="and">and</string>
+    <string name="terms_conditions">Terms Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="q_forgot_password">Forgot password?</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="email_does_not_exist">This address does not exist</string>
+    <string name="password_must_contain">The password must contain capital letters</string>
+    <string name="password_do_not_match">Password do not match</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password_desc">Please enter your email below to receive your password reset instruction</string>
+    <string name="send_request">Send Request</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_password_desc">Reset code was sent to your Email. Please enter the code and create new password</string>
+    <string name="code">Code</string>
+    <string name="change_password">Change Password</string>
+    <string name="success">Success!</string>
+    <string name="password_success_changed">Your password was successfully changed</string>
+    <string name="ok">OK</string>
+    <string name="error_title_dialog">Whoops!</string>
+    <string name="error_message_dialog">Something went wrong...</string>
+    <string name="enter_code">Enter the code</string>
+    <string name="to_do_list">To Do List</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5B5993</color>
+    <color name="colorPrimaryDark">#37355F</color>
+    <color name="colorAccent">#5B5993</color>
+    <color name="buttonColor">#FFFFFF</color>
+    <color name="textActiveButtonColor">#5B5993</color>
+    <color name="shadowButtonColor">#6493A8</color>
+    <color name="accessingAgreeTextColor">#BBBBC7</color>
+    <color name="forgotPasswordTextColor">#5B5993</color>
+    <color name="textInactiveButtonColor">#BBBBC7</color>
+    <color name="termsPrivacyTextColor">#5B5993</color>
+    <color name="headerFragmentTextColor">#BBBBC7</color>
+    <color name="termsPolicyContentColor">#1F1C1C</color>
+    <color name="termsPolicyLinkColor">#1F1C1C</color>
+    <color name="infoDialogBackgroundColor">#FFFFFF</color>
+    <color name="infoDialogTitleColor">#5B5993</color>
+    <color name="infoDialogMessageColor">#BBBBC7</color>
+    <color name="dialogСonfirmTextColor">#5B5993</color>
+    <color name="dialogWindowBackgroundColor">#8025253E</color>
+</resources>

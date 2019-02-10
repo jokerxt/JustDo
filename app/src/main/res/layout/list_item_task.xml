@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="13dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/priorityIcon"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_priority_oval_shape"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/priorityIcon"
+                app:layout_constraintStart_toEndOf="@+id/priorityIcon"
+                app:layout_constraintTop_toTopOf="@+id/priorityIcon" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/sf_display_regular"
+                android:letterSpacing="0.01"
+                android:textColor="#1F1C1C"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBox"
+                app:layout_constraintStart_toEndOf="@+id/checkBox"
+                app:layout_constraintTop_toTopOf="@+id/checkBox"
+                tools:text="Сделать анимацию" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/sf_display_regular"
+                android:letterSpacing="0.01"
+                android:textColor="#1F1C1C"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/checkBox"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/checkBox"
+                tools:text="15:00" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_display_regular"
+                android:letterSpacing="0.01"
+                android:maxLines="1"
+                android:textColor="#BBBBC7"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/time"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="Анимация для продуктового кейса, 10 секунд" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>

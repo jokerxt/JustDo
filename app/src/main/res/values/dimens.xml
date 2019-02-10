@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="forgotPasswordTextSize">17sp</dimen>
+    <dimen name="accessingAgreeTextSize">15sp</dimen>
+    <dimen name="contentMarginStart">40dp</dimen>
+    <dimen name="contentMarginEnd">40dp</dimen>
+    <dimen name="loginButtonTextSize">20sp</dimen>
+    <dimen name="loginButtonWidth">171dp</dimen>
+    <dimen name="loginButtonHeight">52dp</dimen>
+    <dimen name="authInputTextSize">17sp</dimen>
+    <dimen name="choiceAuthButtonTextSize">17sp</dimen>
+    <dimen name="cornerRadiusButton">8dp</dimen>
+    <dimen name="choiceAuthButtonWidth">94dp</dimen>
+    <dimen name="choiceAuthButtonHeight">45dp</dimen>
+    <dimen name="authLogoAppWidth">56dp</dimen>
+    <dimen name="authLogoAppHeight">53dp</dimen>
+    <dimen name="headerFragmentTextSize">17sp</dimen>
+    <dimen name="privacyPolicyContentTextSize">15sp</dimen>
+    <dimen name="changePasswordButtonWidth">201dp</dimen>
+    <dimen name="infoDialogWidth">285dp</dimen>
+    <dimen name="infoDialogPaddingHorizontal">25dp</dimen>
+    <dimen name="infoDialogPaddingVertical">15dp</dimen>
+    <dimen name="infoDialogTitleMarginTop">10dp</dimen>
+    <dimen name="infoDialogTitleSize">25sp</dimen>
+    <dimen name="infoDialogMessageSize">18sp</dimen>
+    <dimen name="infoDialogMessageMarginTitle">15dp</dimen>
+    <dimen name="dialogСonfirmTextSize">17sp</dimen>
+    <dimen name="dialogСonfirmTextMarginMessage">18dp</dimen>
+</resources>

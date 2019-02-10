@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/logoAppImageView"
+        android:layout_width="@dimen/authLogoAppWidth"
+        android:layout_height="@dimen/authLogoAppHeight"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_logo" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choiceLogInButton"
+        android:layout_width="@dimen/choiceAuthButtonWidth"
+        android:layout_height="@dimen/choiceAuthButtonHeight"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/buttonColor"
+        android:elevation="4dp"
+        android:fontFamily="@font/sf_display_medium"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:letterSpacing="0.01"
+        android:padding="0dp"
+        android:shadowColor="@color/shadowButtonColor"
+        android:text="@string/log_in"
+        android:textAllCaps="false"
+        android:textColor="@color/textActiveButtonColor"
+        android:textSize="@dimen/choiceAuthButtonTextSize"
+        app:cornerRadius="@dimen/cornerRadiusButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/choiceSignUpButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoAppImageView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choiceSignUpButton"
+        android:layout_width="@dimen/choiceAuthButtonWidth"
+        android:layout_height="@dimen/choiceAuthButtonHeight"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/buttonColor"
+        android:elevation="4dp"
+        android:fontFamily="@font/sf_display_medium"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:letterSpacing="0.01"
+        android:padding="0dp"
+        android:shadowColor="@color/shadowButtonColor"
+        android:text="@string/sign_up"
+        android:textAllCaps="false"
+        android:textColor="@color/textActiveButtonColor"
+        android:textSize="@dimen/choiceAuthButtonTextSize"
+        app:cornerRadius="@dimen/cornerRadiusButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/choiceLogInButton"
+        app:layout_constraintTop_toTopOf="@+id/choiceLogInButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
