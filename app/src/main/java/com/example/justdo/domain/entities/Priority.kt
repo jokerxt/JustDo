@@ -4,8 +4,9 @@ import android.os.Parcel
 import com.example.justdo.helpers.KParcelable
 import com.example.justdo.helpers.parcelableCreator
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-enum class Priority(private val jsonName: String) : KParcelable {
+enum class Priority(private val jsonName: String) : Serializable {
 
     @SerializedName("high")
     HIGH("high"),
@@ -18,20 +19,6 @@ enum class Priority(private val jsonName: String) : KParcelable {
 
     @SerializedName("no")
     NO("no");
-
-    companion object {
-        @JvmField val CREATOR = parcelableCreator(::Priority)
-    }
-
-    constructor(parcel: Parcel) : this(parcel.readString() ?: Priority.NO.jsonName)
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        with(dest) {
-            writeString(jsonName)
-        }
-    }
-
-    override fun toString() = jsonName
 
 }
 

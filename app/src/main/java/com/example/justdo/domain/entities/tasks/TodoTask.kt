@@ -23,7 +23,7 @@ data class TodoTask(
         parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readString(),
-        parcel.readParcelable(Priority::class.java.classLoader) ?: Priority.NO,
+        parcel.readSerializable() as? Priority?  ?: Priority.NO,
         parcel.readSerializable() as? LocalDateTime? ?: LocalDateTime.now()
     )
 
@@ -32,7 +32,7 @@ data class TodoTask(
             writeLong(id)
             writeString(name)
             writeString(desc)
-            writeParcelable(priority, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
+            writeSerializable(priority)
             writeSerializable(dueDate)
         }
     }

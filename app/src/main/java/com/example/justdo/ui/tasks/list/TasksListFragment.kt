@@ -1,7 +1,10 @@
-package com.example.justdo.ui.tasks
+package com.example.justdo.ui.tasks.list
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justdo.R
 import com.example.justdo.domain.entities.Priority
@@ -12,6 +15,7 @@ import com.example.justdo.ui.common.BaseFragment
 import kotlinx.android.synthetic.main.fragment_tasks_list.*
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
+
 
 class TasksListFragment : BaseFragment() {
 
@@ -55,14 +59,31 @@ class TasksListFragment : BaseFragment() {
         items.add(
             TasksExpandableGroup(
                 task3.dueDate.format(DateTimeFormatter.ofPattern("MMMM d, y")),
-                listOf(task, task3)
+                listOf(task3)
             )
         )
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            adapter = TasksAdapter(items)
+
+            addItemDecoration(
+                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            )
+
+            adapter = TasksAdapter(items).apply {
+                itemClickListener = object : OnItemClickListener {
+                    override fun onItemClick(view: View, globalPos: Int) {
+                        //viewModel?.
+                    }
+                }
+
+
+                val callback = SwipeController()
+                val itemTouchHelper = ItemTouchHelper(callback)
+                itemTouchHelper.attachToRecyclerView(recyclerView)
+
+            }
         }
     }
 

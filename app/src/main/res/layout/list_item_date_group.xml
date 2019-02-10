@@ -8,9 +8,10 @@
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="21dp"
         android:layout_marginStart="27dp"
         android:layout_marginBottom="21dp"
+        android:layout_marginTop="13dp"
         android:fontFamily="@font/sf_display_medium"
         android:letterSpacing="0.01"
         android:textAlignment="center"

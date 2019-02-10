@@ -1,5 +1,7 @@
 package com.example.justdo.presentation.auth
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.ViewModel
 import com.example.justdo.App
 import com.example.justdo.Screens
@@ -42,19 +44,24 @@ class AuthViewModel : ViewModel() {
     }
 
     fun onLoginClick() {
+
+        val handler1 = Handler(Looper.getMainLooper())
+
         Thread(Runnable {
-            Thread.sleep(5000)
+            Thread.sleep(2000)
 
             //isErrorRequest.postValue("Incorrect email or password")
 
-            router.newRootFlow(Screens.TasksFlow)
+            handler1.post {
+                router.newRootFlow(Screens.TasksFlow)
+            }
 
         }).start()
     }
 
     fun onSignupClick() {
         Thread(Runnable {
-            Thread.sleep(5000)
+            Thread.sleep(2000)
 
             isErrorRequest.postValue("User with this email already exists")
 

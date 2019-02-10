@@ -9,7 +9,7 @@ import com.example.justdo.ui.password.ResetPasswordFragment
 import com.example.justdo.ui.privacypolicy.PrivacyPolicyFragment
 import com.example.justdo.ui.tasks.AddTaskFragment
 import com.example.justdo.ui.tasks.FilterTasksFragment
-import com.example.justdo.ui.tasks.TasksListFragment
+import com.example.justdo.ui.tasks.list.TasksListFragment
 import com.example.justdo.ui.termsconditions.TermsConditionsFragment
 import com.example.justdo.ui.todo.TasksFlowFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
