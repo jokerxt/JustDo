@@ -1,4 +1,4 @@
-package com.example.justdo.ui.tasks.list
+package com.example.justdo.ui.tasks.common
 
 import android.view.View
 

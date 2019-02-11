@@ -9,9 +9,10 @@ import com.example.justdo.extension.*
 import com.example.justdo.presentation.auth.AuthViewModel
 import com.example.justdo.ui.common.BaseFragment
 import com.example.justdo.ui.common.dialogs.InfoDialogFragment
+import com.example.justdo.ui.common.dialogs.OnDialogClickListener
 import kotlinx.android.synthetic.main.fragment_reset_password.*
 
-class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, InfoDialogFragment.OnClickListener {
+class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDialogClickListener {
 
     override val layoutRes = R.layout.fragment_reset_password
 
@@ -73,15 +74,15 @@ class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, InfoDi
         })
     }
 
-    override fun dialogConfirm(tag: String) {
+    override fun dialogConfirmClicked(tag: String?) {
         handleDialogActions(tag)
     }
 
-    override fun dialogCanceled(tag: String) {
+    override fun dialogCanceled(tag: String?) {
         handleDialogActions(tag)
     }
 
-    private fun handleDialogActions(tag: String) {
+    private fun handleDialogActions(tag: String?) {
         when (tag) {
             SUCCESS_CHANGED_PASSWORD_TAG -> viewModel?.backToLogin()
             ERROR_CHANGED_PASSWORD_TAG -> {

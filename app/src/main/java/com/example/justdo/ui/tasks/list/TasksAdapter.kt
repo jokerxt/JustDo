@@ -6,12 +6,14 @@ import com.example.justdo.R
 import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
 import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.extension.inflate
+import com.example.justdo.ui.tasks.common.OnItemClickListener
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 
 
 class TasksAdapter(groups: List<TasksExpandableGroup>) :
-    ExpandableRecyclerViewAdapter<DateGroupViewHolder, TaskViewHolder>(groups), OnItemClickListener {
+    ExpandableRecyclerViewAdapter<DateGroupViewHolder, TaskViewHolder>(groups),
+    OnItemClickListener {
 
     var itemClickListener: OnItemClickListener? = null
 

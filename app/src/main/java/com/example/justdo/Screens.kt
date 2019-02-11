@@ -11,7 +11,7 @@ import com.example.justdo.ui.tasks.AddTaskFragment
 import com.example.justdo.ui.tasks.FilterTasksFragment
 import com.example.justdo.ui.tasks.list.TasksListFragment
 import com.example.justdo.ui.termsconditions.TermsConditionsFragment
-import com.example.justdo.ui.todo.TasksFlowFragment
+import com.example.justdo.ui.tasks.TasksFlowFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {

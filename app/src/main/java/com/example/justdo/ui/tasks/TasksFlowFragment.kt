@@ -1,4 +1,4 @@
-package com.example.justdo.ui.todo
+package com.example.justdo.ui.tasks
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.example.justdo.R
 import com.example.justdo.domain.entities.tasks.TodoTask
+import com.example.justdo.ui.tasks.common.OnItemClickListener
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -25,6 +26,7 @@ class TaskViewHolder(private val view: View) : ChildViewHolder(view), View.OnCli
         name.text = todoTask.name
         desc.text = todoTask.desc
         time.text = todoTask.dueDate.format(DateTimeFormatter.ofPattern("HH:mm"))
+        priorityIcon.setColorFilter(todoTask.priority.color)
         cardView.setOnClickListener(this)
     }
 

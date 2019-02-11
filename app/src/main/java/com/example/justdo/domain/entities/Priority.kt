@@ -1,24 +1,22 @@
 package com.example.justdo.domain.entities
 
-import android.os.Parcel
-import com.example.justdo.helpers.KParcelable
-import com.example.justdo.helpers.parcelableCreator
+import android.graphics.Color
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-enum class Priority(private val jsonName: String) : Serializable {
+enum class Priority(val type: String, val color: Int) : Serializable {
 
     @SerializedName("high")
-    HIGH("high"),
+    HIGH("High", Color.parseColor("#DD4A52")),
 
     @SerializedName("medium")
-    MEDIUM("medium"),
+    MEDIUM("Medium", Color.parseColor("#FCD3A0")),
 
     @SerializedName("low")
-    LOW("low"),
+    LOW("Low", Color.parseColor("#BFC5FD")),
 
     @SerializedName("no")
-    NO("no");
+    NO("No", Color.parseColor("#DADADE"));
 
 }
 

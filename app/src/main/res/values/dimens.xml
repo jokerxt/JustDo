@@ -26,4 +26,5 @@
     <dimen name="infoDialogMessageMarginTitle">15dp</dimen>
     <dimen name="dialogСonfirmTextSize">17sp</dimen>
     <dimen name="dialogСonfirmTextMarginMessage">18dp</dimen>
+    <dimen name="menuItemTextSize">17sp</dimen>
 </resources>

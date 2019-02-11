@@ -3,21 +3,23 @@ package com.example.justdo.ui.tasks.list
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justdo.R
 import com.example.justdo.domain.entities.Priority
 import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
+import com.example.justdo.domain.entities.tasks.TasksListMenu
 import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.presentation.tasks.TasksViewModel
 import com.example.justdo.ui.common.BaseFragment
+import com.example.justdo.ui.common.dialogs.MenuDialogFragment
+import com.example.justdo.ui.common.dialogs.OnDialogClickListener
+import com.example.justdo.ui.tasks.common.OnItemClickListener
 import kotlinx.android.synthetic.main.fragment_tasks_list.*
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
 
-class TasksListFragment : BaseFragment() {
+class TasksListFragment : BaseFragment(), OnDialogClickListener {
 
     override val layoutRes = R.layout.fragment_tasks_list
 
@@ -67,10 +69,6 @@ class TasksListFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
 
-            addItemDecoration(
-                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-            )
-
             adapter = TasksAdapter(items).apply {
                 itemClickListener = object : OnItemClickListener {
                     override fun onItemClick(view: View, globalPos: Int) {
@@ -78,12 +76,26 @@ class TasksListFragment : BaseFragment() {
                     }
                 }
 
-
-                val callback = SwipeController()
-                val itemTouchHelper = ItemTouchHelper(callback)
-                itemTouchHelper.attachToRecyclerView(recyclerView)
+//                val callback = SwipeController()
+//                val itemTouchHelper = ItemTouchHelper(callback)
+//                itemTouchHelper.attachToRecyclerView(recyclerView)
 
             }
+        }
+
+        toDoMenuIcon.setOnClickListener {
+
+            MenuDialogFragment.create(TasksListMenu.values().map { it.textResId })
+                .show(childFragmentManager, null)
+        }
+
+        addTaskButton.setOnClickListener { viewModel?.onAddTaskClick() }
+    }
+
+    override fun dialogItemClicked(tag: String?, position: Int) {
+        when(position) {
+            TasksListMenu.ITEM_CHANGE_PASSWORD.ordinal -> viewModel?.onChangePasswordClick()
+            TasksListMenu.ITEM_SIGN_OUT.ordinal -> viewModel?.onSignOutClick()
         }
     }
 

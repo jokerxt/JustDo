@@ -41,10 +41,4 @@ class AuthFlowFragment : FlowFragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        App.componentsManager.clearFlowComponent()
-    }
-
 }

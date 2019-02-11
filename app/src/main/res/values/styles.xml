@@ -19,14 +19,19 @@
         <item name="android:fontFamily">@font/sf_display_regular</item>
     </style>
 
-    <style name="InfoDialog" parent="@android:style/Theme.Dialog">
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@color/dialogWindowBackgroundColor</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTitleStyle">@null</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:gravity">center</item>
+        <item name="android:windowAnimationStyle">@style/CustomDialogAnimation.Window</item>
+    </style>
+
+    <style name="CustomDialogAnimation.Window" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
 </resources>

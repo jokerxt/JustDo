@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/menuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_display_medium"
+        android:letterSpacing="0.01"
+        android:textAlignment="center"
+        android:textColor="@color/menuItemTextColor"
+        android:textSize="@dimen/menuItemTextSize"
+        tools:text="@string/sign_out" />
+
+    <View
+        android:id="@+id/menuItemDivider"
+        android:layout_width="180dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#BBBBC7" />
+
+</LinearLayout>

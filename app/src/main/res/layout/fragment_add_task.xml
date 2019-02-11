@@ -1,5 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp" />
+
+    <!---->
+
+    <ImageView
+        android:id="@+id/addTaskArrowBack"
+        android:layout_width="6dp"
+        android:layout_height="13dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addTaskHeaderText"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="@+id/addTaskHeaderText"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/addTaskHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/sf_display_medium"
+        android:letterSpacing="0.01"
+        android:text="@string/create_reminder"
+        android:textColor="@color/headerFragmentTextColor"
+        android:textSize="@dimen/headerFragmentTextSize"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="27dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/addTaskHeaderText">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selectPriorityRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/signupEmailLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/signupEmailLayout"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signupEmailLayout"
+                style="@style/TextInputLayoutAppearance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="30dp"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/InputErrorAppearance"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/selectPriorityRecyclerView">
+
+                <EditText
+                    android:id="@+id/titleTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_display_regular"
+                    android:hint="Enter title…"
+                    android:inputType="textMultiLine"
+                    android:letterSpacing="0.01"
+                    android:textColor="#1F1C1C"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/signupPasswordLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/signupPasswordLayout"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signupPasswordLayout"
+                style="@style/TextInputLayoutAppearance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="13dp"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/InputErrorAppearance"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/signupEmailLayout">
+
+                <EditText
+                    android:id="@+id/descriptionTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_display_regular"
+                    android:hint="Enter description…"
+                    android:inputType="textMultiLine"
+                    android:letterSpacing="0.01"
+                    android:textColor="#1F1C1C"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/runToLable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/sf_display_medium"
+                android:letterSpacing="0.01"
+                android:text="Run To"
+                android:textColor="@color/termsPolicyContentColor"
+                android:textSize="@dimen/headerFragmentTextSize"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/signupPasswordLayout" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/runToLable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/runToLable"
+                app:layout_constraintTop_toTopOf="@+id/runToLable">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_display_medium"
+                    android:letterSpacing="0.01"
+                    android:textColor="@color/termsPrivacyTextColor"
+                    android:textSize="@dimen/headerFragmentTextSize"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/signupPasswordLayout"
+                    tools:text="January 09, 2019" />
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="4dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView2"
+                app:layout_constraintStart_toStartOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_display_medium"
+                    android:letterSpacing="0.01"
+                    android:textAlignment="center"
+                    android:textColor="@color/termsPrivacyTextColor"
+                    android:textSize="@dimen/headerFragmentTextSize"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/signupPasswordLayout"
+                    tools:text="4:20 PM" />
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_display_medium"
+                android:letterSpacing="0.01"
+                android:layout_marginTop="40dp"
+                android:text="Reminder"
+                android:textColor="@color/termsPolicyContentColor"
+                android:textSize="@dimen/headerFragmentTextSize"
+                app:layout_constraintStart_toStartOf="@+id/runToLable"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/reminder"
+                app:layout_constraintEnd_toEndOf="@+id/cardView3"
+                app:layout_constraintStart_toStartOf="@+id/cardView3"
+                app:layout_constraintTop_toTopOf="@+id/reminder">
+
+                <TextView
+                    android:id="@+id/remind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/sf_display_medium"
+                    android:letterSpacing="0.01"
+                    android:textColor="@color/termsPrivacyTextColor"
+                    android:textSize="@dimen/headerFragmentTextSize"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/signupPasswordLayout"
+                    tools:text="1 hour" />
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/cancelAddTask"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4"
+                app:srcCompat="@drawable/ic_cancel" />
+
+            <ImageView
+                android:id="@+id/okAddTask"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="4dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="104dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4"
+                app:srcCompat="@drawable/ic_okay" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

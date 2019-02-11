@@ -27,4 +27,9 @@
     <string name="error_message_dialog">Something went wrong...</string>
     <string name="enter_code">Enter the code</string>
     <string name="to_do_list">To Do List</string>
+    <string name="create_reminder">Create Reminder</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="sign_out">Sign out</string>
 </resources>
