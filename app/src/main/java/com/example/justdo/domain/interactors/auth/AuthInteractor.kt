@@ -1,6 +1,6 @@
 package com.example.justdo.domain.interactors.auth
 
-import com.example.justdo.model.repository.AuthRepository
+import com.example.justdo.model.repository.auth.AuthRepository
 import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
