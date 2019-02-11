@@ -12,11 +12,8 @@ class AuthRepository @Inject constructor(
     private val schedulers: SchedulersProvider
 ) {
     fun login(email: String, password: String) = api
-        .getToken(TokenRequest(email, password, "qwerty1", GRANT_TYPE_PASSWORD))
+        .getToken(TokenRequest(email, password, "android", GRANT_TYPE_PASSWORD))
         .subscribeOn(schedulers.io())
-        .flatMap {
-            Single.just(it)
-        }
         .observeOn(schedulers.ui())
 
     fun signup(email: String, password: String) = api

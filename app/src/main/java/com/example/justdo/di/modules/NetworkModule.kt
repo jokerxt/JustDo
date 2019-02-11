@@ -14,9 +14,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import okhttp3.Cache
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.io.File
 import java.lang.Exception
+import java.net.HttpURLConnection
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -49,6 +48,7 @@ class NetworkModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
+
     @Suppress("UNUSED_PARAMETER")
     @Provides
     @Singleton
@@ -62,7 +62,7 @@ class NetworkModule {
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
-            .addInterceptor(errorHandlerInterceptor)
+            .addNetworkInterceptor(errorHandlerInterceptor)
             .cache(cache)
         //debug if not httpS
 //            .hostnameVerifier { hostname, session ->
@@ -88,25 +88,30 @@ class NetworkModule {
     @Provides
     @Singleton
     @Named("Error Handler Interceptor")
-    fun provideErrorHandlerInterceptorr() = Interceptor { chain ->
+    fun provideErrorHandlerInterceptor() = Interceptor { chain ->
         val originalResponse = chain.proceed(chain.request())
-        val body = originalResponse.body()
+        val retResponse = originalResponse.newBuilder().build()
+        if (originalResponse.isSuccessful) {
+            val serverErrorMessage = "Server error. Try again later"
 
-        val jsonString = body?.string()
-        body?.close()
-        try {
-            val info = GsonBuilder().create().fromJson(jsonString, BaseServerInfo::class.java)
-            info?.also {
-                if (it.success != true) {
-                    throw ServerError(it.errorCode ?: 500, it.error ?: "Server Error")
-                }
+            val jsonString = originalResponse.let {
+                it.peekBody(Long.MAX_VALUE)?.run { string().also { close() } }
+            }
+
+            val info = try {
+                GsonBuilder().create().fromJson(jsonString, BaseServerInfo::class.java)
+            } catch (e: Exception) {
+                throw ServerError(originalResponse.code(), serverErrorMessage)
+            }
+
+            if (info.success != true) {
+                throw ServerError(
+                    info.errorCode ?: HttpURLConnection.HTTP_INTERNAL_ERROR,
+                    info.error ?: serverErrorMessage
+                )
             }
         }
-        catch (e: Exception) {
-            throw ServerError(500, "Server Error")
-        }
-
-        originalResponse.newBuilder().build()
+        retResponse
     }
 
     @Provides
