@@ -5,23 +5,25 @@ import com.example.justdo.domain.entities.server.ForgotPasswordRequest
 import com.example.justdo.domain.entities.server.RegUserRequest
 import com.example.justdo.domain.entities.server.TokenRequest
 import com.example.justdo.model.data.server.ServerApi
-import com.example.justdo.model.data.storage.Prefs
+import com.example.justdo.model.data.storage.GlobalPreference
 import com.example.justdo.system.SchedulersProvider
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
     private val api: ServerApi,
-    private val prefs: Prefs,
+    private val globalPreference: GlobalPreference,
     private val schedulers: SchedulersProvider
 ) {
-    
+
     fun login(email: String, password: String) = api
         .getToken(TokenRequest(email, password, "android",
             GRANT_TYPE_PASSWORD
         ))
         .subscribeOn(schedulers.io())
         .observeOn(schedulers.ui())
-        .doOnSuccess { prefs.tokenInfo = it }
+        .doOnSuccess {
+            globalPreference.tokenInfo = it
+        }
 
     fun signup(email: String, password: String) = api
         .registration(RegUserRequest(email, password))
@@ -29,7 +31,7 @@ class AuthRepository @Inject constructor(
         .observeOn(schedulers.io())
         .flatMap { login(email, password) }
         .observeOn(schedulers.ui())
-        .doOnSuccess { prefs.tokenInfo = it }
+        .doOnSuccess { globalPreference.tokenInfo = it }
 
     fun forgotPassword(email: String) = api
         .forgotPassword(ForgotPasswordRequest(email))

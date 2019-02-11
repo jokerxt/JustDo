@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import com.example.justdo.App
 import com.example.justdo.domain.entities.server.BaseServerInfo
+import com.example.justdo.domain.entities.server.TokenInfo
 import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.model.data.TodoMapCache
 import com.example.justdo.model.data.server.CachedServerResponse
 import com.example.justdo.model.data.server.ServerApi
 import com.example.justdo.model.data.server.deserializer.TodoTasksListDeserializer
+import com.example.justdo.model.data.server.deserializer.TokenInfoDeserializer
 import com.example.justdo.model.data.server.error.ServerError
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -123,6 +125,7 @@ class NetworkModule {
         .setLenient()
         .excludeFieldsWithoutExposeAnnotation()
         .registerTypeAdapter(Array<TodoTask>::class.java, TodoTasksListDeserializer())
+        .registerTypeAdapter(TokenInfo::class.java, TokenInfoDeserializer())
         .create()
 
     @Provides

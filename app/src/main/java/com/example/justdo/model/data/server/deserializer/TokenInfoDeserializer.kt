@@ -1,35 +1,22 @@
 package com.example.justdo.model.data.server.deserializer
 
-import com.example.justdo.domain.entities.tasks.TodoTask
+import com.example.justdo.domain.entities.server.TokenInfo
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import java.lang.reflect.Type
 
-class TodoTasksListDeserializer : JsonDeserializer<Array<TodoTask>> {
+class TokenInfoDeserializer : JsonDeserializer<TokenInfo> {
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type?,
         context: JsonDeserializationContext?
-    ): Array<TodoTask> =
+    ): TokenInfo =
         GsonBuilder()
             .create()
             .fromJson(
                 json.asJsonObject["result"]
-                    .asJsonObject["list"]
-                    .asJsonArray, Array<TodoTask>::class.java
+                    .asJsonObject, TokenInfo::class.java
             )
-
-    /*
-    {
-        "success": true,
-        "result" : {
-            "list": [
-                {},
-                {}
-            ]
-        }
-    }
-    */
 }

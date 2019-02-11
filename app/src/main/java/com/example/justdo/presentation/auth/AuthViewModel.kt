@@ -64,7 +64,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     fun onLoginClick(email: String, password: String) {
         val isDebug = ((getApplication<App>().applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0)
 
-        if (!isDebug) {
+        if (isDebug) {
             authInteractor.login(email, password)
                 .subscribe(
                     { router.newRootFlow(Screens.TasksFlow) },

@@ -5,7 +5,7 @@ import com.example.justdo.domain.entities.server.TokenInfo
 import com.google.gson.Gson
 import javax.inject.Inject
 
-class Prefs @Inject constructor(
+class GlobalPreference @Inject constructor(
     private val context: Context,
     private val gson: Gson
 ) {
