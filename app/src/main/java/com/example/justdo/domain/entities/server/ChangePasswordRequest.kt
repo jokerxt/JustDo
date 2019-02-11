@@ -4,12 +4,9 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ChangePasswordRequest(
-    @Expose @SerializedName("email")
-    var email: String,
+    @Expose @SerializedName("code")
+    var code: String,
 
     @Expose @SerializedName("password")
-    var password: String,
-
-    @Expose @SerializedName("new_password")
-    var newPassword: String
+    var password: String
 )

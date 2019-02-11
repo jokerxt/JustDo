@@ -74,13 +74,13 @@ class AppActivity : AppCompatActivity() {
         currentFragment?.onBackPressed() ?: super.onBackPressed()
     }
 
-    private fun showDialogMessage(title: String, message: String) {
+    fun showMessage(title: String, message: String) {
         InfoDialogFragment.create(title, message).show(supportFragmentManager, null)
     }
 
     fun showErrorMessage(message: String? = null) {
         val title = getString(R.string.error_title_dialog)
-        showDialogMessage(title, message ?: getString(R.string.error_message_dialog))
+        showMessage(title, message ?: getString(R.string.error_message_dialog))
     }
 
 }

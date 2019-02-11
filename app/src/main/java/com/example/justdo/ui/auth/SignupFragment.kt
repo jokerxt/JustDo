@@ -56,7 +56,7 @@ class SignupFragment : AuthFragment(), View.OnFocusChangeListener {
             viewModel?.onSignupClick(email, password)
         }
 
-        viewModel?.isErrorRequest?.observe(this, Observer {
+        viewModel?.responseError?.observe(this, Observer {
             signupChangeStateViews(false)
             (activity as? AppActivity?)?.showErrorMessage(it)
         })

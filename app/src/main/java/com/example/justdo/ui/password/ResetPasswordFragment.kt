@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.justdo.R
 import com.example.justdo.extension.*
 import com.example.justdo.presentation.auth.AuthViewModel
+import com.example.justdo.ui.AppActivity
 import com.example.justdo.ui.common.BaseFragment
-import com.example.justdo.ui.common.dialogs.InfoDialogFragment
 import com.example.justdo.ui.common.dialogs.OnDialogClickListener
 import kotlinx.android.synthetic.main.fragment_reset_password.*
 
@@ -31,8 +31,10 @@ class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDial
             resetPasswordRootLayout.requestFocus()
             it.hideKeyboard()
 
+            val resetCode = resetPasswordCode.text.toString()
             val password = newPassword.text.toString()
-            val isCodeEntered = resetPasswordCode.text.isNotEmpty()
+
+            val isCodeEntered = resetCode.isNotEmpty()
             val isValidPassword = password.isValidPassword()
             val isConfirmedPassword = password.contentEquals(confirmNewPassword.text)
 
@@ -49,14 +51,8 @@ class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDial
                 return@setOnClickListener
             }
 
-            resetPasswordArrowBack.disable()
-            resetPasswordCode.disable()
-            newPassword.disable()
-            confirmNewPassword.disable()
-            changePasswordButton.hide()
-            changePasswordProgress.show()
-
-            viewModel?.onChangePasswordClick()
+            resetChangeStateViews(true)
+            viewModel?.onChangePasswordClick(resetCode, password)
         }
 
         resetPasswordArrowBack.apply {
@@ -64,36 +60,26 @@ class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDial
             setOnClickListener { onBackPressed() }
         }
 
-        viewModel?.isPasswordChanged?.observe(this, Observer { isPassChanged ->
-            val tag = if(isPassChanged) SUCCESS_CHANGED_PASSWORD_TAG else ERROR_CHANGED_PASSWORD_TAG
-            val title = getString(if(isPassChanged) R.string.success else R.string.error_title_dialog)
-            val messageResId = if(isPassChanged) R.string.password_success_changed else R.string.error_message_dialog
-            val message = getString(messageResId)
+        viewModel?.responseError?.observe(this, Observer {
+            resetChangeStateViews(false)
+            (activity as? AppActivity?)?.showErrorMessage(it)
+        })
 
-            InfoDialogFragment.create(title, message, getString(R.string.ok), tag).show(childFragmentManager, tag)
+        viewModel?.isPasswordChanged?.observe(this, Observer {
+            (activity as? AppActivity?)?.showMessage(
+                getString(R.string.success),
+                getString(R.string.password_success_changed)
+            )
         })
     }
 
-    override fun dialogConfirmClicked(tag: String?) {
-        handleDialogActions(tag)
-    }
-
-    override fun dialogCanceled(tag: String?) {
-        handleDialogActions(tag)
-    }
-
-    private fun handleDialogActions(tag: String?) {
-        when (tag) {
-            SUCCESS_CHANGED_PASSWORD_TAG -> viewModel?.backToLogin()
-            ERROR_CHANGED_PASSWORD_TAG -> {
-                resetPasswordArrowBack.enable()
-                resetPasswordCode.enable()
-                newPassword.enable()
-                confirmNewPassword.enable()
-                changePasswordButton.show()
-                changePasswordProgress.hide()
-            }
-        }
+    private fun resetChangeStateViews(isStartReset: Boolean) {
+        resetPasswordArrowBack.apply { if (isStartReset) disable() else enable() }
+        resetPasswordCode.apply { if (isStartReset) disable() else enable() }
+        newPassword.apply { if (isStartReset) disable() else enable() }
+        confirmNewPassword.apply { if (isStartReset) disable() else enable() }
+        changePasswordButton.apply { if (isStartReset) hide() else show() }
+        changePasswordProgress.apply { if (isStartReset) show() else hide() }
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {
@@ -109,10 +95,4 @@ class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDial
     override fun onBackPressed() {
         viewModel?.onBackPressed()
     }
-
-    private companion object {
-        private const val SUCCESS_CHANGED_PASSWORD_TAG = "success_changed_password_tag"
-        private const val ERROR_CHANGED_PASSWORD_TAG = "error_changed_password_tag"
-    }
-
 }

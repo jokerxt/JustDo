@@ -21,6 +21,7 @@ interface ServerApi {
         const val POST__GET_TOKEN = "/api/$API_VERSION/token"
         const val POST__REGISTRATION = "/api/$API_VERSION/register"
 
+        const val POST__AUTH_CHANGE_PASSWORD = "/api/$API_VERSION/password/auth/change"
         const val POST__CHANGE_PASSWORD = "/api/$API_VERSION/password/change"
         const val POST__FORGOT_PASSWORD = "/api/$API_VERSION/password/forgot"
 
@@ -44,12 +45,15 @@ interface ServerApi {
     @GET(GET__GET_TERMS_CONDITIONS)
     fun getTermsConditions(): Single<Map<String, String>>
 
-    @POST(POST__CHANGE_PASSWORD)
+    @POST(POST__AUTH_CHANGE_PASSWORD)
     fun changePassword(@Header(AUTHORIZATION_HEADER) typedToken: String,
-                       @Body body: ChangePasswordRequest): Single<Any>
+                       @Body body: AuthChangePasswordRequest): Single<BaseServerInfo>
+
+    @POST(POST__CHANGE_PASSWORD)
+    fun changePassword(@Body body: ChangePasswordRequest): Single<BaseServerInfo>
 
     @POST(POST__FORGOT_PASSWORD)
-    fun forgotPassword(@Body body: ForgotPasswordRequest): Single<Any>
+    fun forgotPassword(@Body body: ForgotPasswordRequest): Single<BaseServerInfo>
 
     @GET(GET__GET_TODO_LIST)
     fun getTodoTasksList(@Header(AUTHORIZATION_HEADER) typedToken: String): Single<Array<TodoTask>>

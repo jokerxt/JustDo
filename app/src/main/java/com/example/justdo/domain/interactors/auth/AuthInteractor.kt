@@ -9,4 +9,9 @@ class AuthInteractor @Inject constructor(
     fun login(email: String, password: String) = authRepository.login(email, password)
 
     fun signup(email: String, password: String) = authRepository.signup(email, password)
+
+    fun forgotPassword(email: String) = authRepository.forgotPassword(email)
+
+    fun changePassword(code: String, password: String) =
+        authRepository.changePassword(code, password)
 }

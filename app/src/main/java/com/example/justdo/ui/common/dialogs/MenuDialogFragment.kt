@@ -24,11 +24,14 @@ class MenuDialogFragment : RootDialogFragment(), View.OnClickListener {
                 val lastItem = size-1
                 forEachIndexed { index, resId ->
                     val itemView = menuItemsHolder.inflate(R.layout.item_menu)
-                    itemView.findViewById<TextView>(R.id.menuItem).text = getString(resId)
+                    itemView.findViewById<TextView>(R.id.menuItem).apply {
+                        text = getString(resId)
+                        setOnClickListener(this@MenuDialogFragment)
+                    }
+
                     if(index == lastItem)
                         itemView.findViewById<View>(R.id.menuItemDivider).hide(true)
 
-                    itemView.setOnClickListener(this@MenuDialogFragment)
                     menuItemsHolder.addView(itemView)
                 }
             }
@@ -47,7 +50,7 @@ class MenuDialogFragment : RootDialogFragment(), View.OnClickListener {
             }
             else -> {
                 dismissAllowingStateLoss()
-                clickListener.dialogItemClicked(dialogTag, menuItemsHolder.indexOfChild(v))
+                clickListener.dialogItemClicked(dialogTag, menuItemsHolder.indexOfChild(v.parent as View))
             }
         }
     }

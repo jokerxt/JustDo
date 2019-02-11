@@ -1,5 +1,7 @@
 package com.example.justdo.model.repository
 
+import com.example.justdo.domain.entities.server.ChangePasswordRequest
+import com.example.justdo.domain.entities.server.ForgotPasswordRequest
 import com.example.justdo.domain.entities.server.RegUserRequest
 import com.example.justdo.domain.entities.server.TokenRequest
 import com.example.justdo.model.data.server.ServerApi
@@ -21,6 +23,16 @@ class AuthRepository @Inject constructor(
         .subscribeOn(schedulers.io())
         .observeOn(schedulers.io())
         .flatMap { login(email, password) }
+        .observeOn(schedulers.ui())
+
+    fun forgotPassword(email: String) = api
+        .forgotPassword(ForgotPasswordRequest(email))
+        .subscribeOn(schedulers.io())
+        .observeOn(schedulers.ui())
+
+    fun changePassword(code: String, password: String) = api
+        .changePassword(ChangePasswordRequest(code, password))
+        .subscribeOn(schedulers.io())
         .observeOn(schedulers.ui())
 
     companion object {

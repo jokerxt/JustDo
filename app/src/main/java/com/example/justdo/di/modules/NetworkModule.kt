@@ -37,7 +37,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideTodoMapCache(okHttpClient: OkHttpClient, gson: Gson) = TodoMapCache()
+    fun provideTodoMapCache() = TodoMapCache()
 
     @Provides
     @Singleton
@@ -91,9 +91,9 @@ class NetworkModule {
     fun provideErrorHandlerInterceptor() = Interceptor { chain ->
         val originalResponse = chain.proceed(chain.request())
         val retResponse = originalResponse.newBuilder().build()
-        if (originalResponse.isSuccessful) {
-            val serverErrorMessage = "Server error. Try again later"
 
+        val serverErrorMessage = "Server error\nTry again later"
+        if (originalResponse.isSuccessful) {
             val jsonString = originalResponse.let {
                 it.peekBody(Long.MAX_VALUE)?.run { string().also { close() } }
             }
@@ -110,6 +110,9 @@ class NetworkModule {
                     info.error ?: serverErrorMessage
                 )
             }
+        }
+        else {
+            throw ServerError(originalResponse.code(), serverErrorMessage)
         }
         retResponse
     }

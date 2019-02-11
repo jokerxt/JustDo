@@ -51,7 +51,7 @@ class LoginFragment : AuthFragment(), View.OnFocusChangeListener {
             viewModel?.onLoginClick(email, password)
         }
 
-        viewModel?.isErrorRequest?.observe(this, Observer {
+        viewModel?.responseError?.observe(this, Observer {
             loginChangeStateViews(false)
             (activity as? AppActivity?)?.showErrorMessage(it)
         })
