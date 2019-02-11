@@ -1,31 +1,38 @@
 package com.example.justdo.presentation.auth
 
+import android.app.Application
+import android.content.pm.ApplicationInfo
 import android.os.Handler
-import android.os.Looper
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import com.example.justdo.App
 import com.example.justdo.Screens
+import com.example.justdo.domain.interactors.auth.AuthInteractor
 import com.example.justdo.system.FlowRouter
 import com.example.justdo.system.SingleLiveEvent
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import timber.log.Timber
 import javax.inject.Inject
+import kotlin.random.Random
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     @Inject
     lateinit var router: FlowRouter
 
+    @Inject
+    lateinit var authInteractor: AuthInteractor
+
     val isPasswordChanged = SingleLiveEvent<Boolean>()
     val isErrorRequest = SingleLiveEvent<String>()
+
+    private val compositeDisposable = CompositeDisposable()
 
     init {
         App.componentsManager.getFlowComponent().inject(this)
     }
 
     fun onBackPressed() = router.exit()
-
-    override fun onCleared() {
-        super.onCleared()
-    }
 
     fun onChoiceSignUpClick() {
         router.replaceScreen(Screens.Signup)
@@ -43,27 +50,65 @@ class AuthViewModel : ViewModel() {
         router.navigateTo(Screens.PrivacyPolicy)
     }
 
-    fun onLoginClick() {
-
-        val handler1 = Handler(Looper.getMainLooper())
-
-        Thread(Runnable {
-            Thread.sleep(2000)
-
-            //isErrorRequest.postValue("Incorrect email or password")
-
-            handler1.post {
-                router.newRootFlow(Screens.TasksFlow)
-            }
-
-        }).start()
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
     }
 
-    fun onSignupClick() {
-        Thread(Runnable {
-            Thread.sleep(2000)
+    private fun Disposable.connect() {
+        compositeDisposable.add(this)
+    }
 
-            isErrorRequest.postValue("User with this email already exists")
+    fun onLoginClick(email: String, password: String) {
+
+        val isDebug = ((getApplication<App>().applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0)
+
+        if(isDebug) {
+            authInteractor.login(email, password)
+                .subscribe(
+                    { router.newRootFlow(Screens.TasksFlow) },
+                    {
+                        Timber.e("login error: $it")
+                        isErrorRequest.postValue(it.message)
+                    }
+                )
+                .connect()
+        } else {
+            val handler = Handler()
+            Thread(Runnable {
+                Thread.sleep(1000)
+                handler.post {
+                    if (Random.nextBoolean()) {
+                        router.newRootFlow(Screens.TasksFlow)
+                    } else {
+                        if (Random.nextBoolean()) {
+                            isErrorRequest.postValue("Incorrect email or password")
+                        } else {
+                            isErrorRequest.postValue("Server error - try again later")
+                        }
+                    }
+                }
+            }).start()
+        }
+    }
+
+    fun onSignupClick(email: String, password: String) {
+        authInteractor.signup(email, password)
+            .subscribe(
+                { router.newRootFlow(Screens.TasksFlow) },
+                {
+                    Timber.e("signup error: $it")
+                    isErrorRequest.postValue(it.message)
+                }
+            )
+            .connect()
+    }
+
+    fun onChangePasswordClick() {
+        Thread(Runnable {
+            Thread.sleep(5000)
+
+            isPasswordChanged.postValue(true)
 
         }).start()
     }
@@ -74,15 +119,6 @@ class AuthViewModel : ViewModel() {
 
     fun onForgotPasswordSendRequestClick() {
         router.navigateTo(Screens.ResetPassword)
-    }
-
-    fun onChangePasswordClick() {
-        Thread(Runnable {
-            Thread.sleep(5000)
-
-            isPasswordChanged.postValue(true)
-
-        }).start()
     }
 
     fun backToLogin() {

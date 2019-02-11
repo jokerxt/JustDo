@@ -32,8 +32,10 @@ class SignupFragment : AuthFragment(), View.OnFocusChangeListener {
             signupRootLayout.requestFocus()
             it.hideKeyboard()
 
+            val email = signupEmail.text.toString()
             val password = signupPassword.text.toString()
-            val isValidEmail = signupEmail.text.toString().isValidEmail()
+
+            val isValidEmail = email.isValidEmail()
             val isValidPassword = password.isValidPassword()
             val isConfirmedPassword = password.contentEquals(signupConfirmPassword.text)
 
@@ -51,7 +53,7 @@ class SignupFragment : AuthFragment(), View.OnFocusChangeListener {
             }
 
             signupChangeStateViews(true)
-            viewModel?.onSignupClick()
+            viewModel?.onSignupClick(email, password)
         }
 
         viewModel?.isErrorRequest?.observe(this, Observer {

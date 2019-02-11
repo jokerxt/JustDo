@@ -31,8 +31,11 @@ class LoginFragment : AuthFragment(), View.OnFocusChangeListener {
             loginRootLayout.requestFocus()
             it.hideKeyboard()
 
-            val isValidEmail = loginEmail.text.toString().isValidEmail()
-            val isValidPassword = loginPassword.text.toString().isValidPassword()
+            val email = loginEmail.text.toString()
+            val password = loginPassword.text.toString()
+
+            val isValidEmail = email.isValidEmail()
+            val isValidPassword = password.isValidPassword()
 
             if (!isValidEmail || !isValidPassword) {
                 if (!isValidEmail)
@@ -45,7 +48,7 @@ class LoginFragment : AuthFragment(), View.OnFocusChangeListener {
             }
 
             loginChangeStateViews(true)
-            viewModel?.onLoginClick()
+            viewModel?.onLoginClick(email, password)
         }
 
         viewModel?.isErrorRequest?.observe(this, Observer {

@@ -15,6 +15,7 @@ class App : Application() {
         lateinit var componentsManager: ComponentsManager
             private set
 
+        const val SERVER_ADDRESS = "http://blythe.dev.unit6.ru"
     }
 
     override fun onCreate() {
