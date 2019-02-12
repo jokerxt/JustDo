@@ -24,7 +24,7 @@
     <string name="password_success_changed">Your password was successfully changed</string>
     <string name="ok">OK</string>
     <string name="error_title_dialog">Whoops!</string>
-    <string name="error_message_dialog">Something went wrong...</string>
+    <string name="error_message_dialog">Something went wrong…</string>
     <string name="enter_code">Enter the code</string>
     <string name="to_do_list">To Do List</string>
     <string name="create_reminder">Create Reminder</string>
@@ -32,4 +32,7 @@
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
     <string name="sign_out">Sign out</string>
+    <string name="empty_tap_for_add_new_task"><![CDATA[ Empty\nTap + for add new task ]]></string>
+    <string name="retry_request">Retry request!</string>
+
 </resources>

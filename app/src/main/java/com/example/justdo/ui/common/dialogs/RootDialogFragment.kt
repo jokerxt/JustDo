@@ -29,7 +29,7 @@ abstract class RootDialogFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(arguments == null) {
+        if (arguments == null) {
             dismissAllowingStateLoss()
             clickListener.dialogCanceled(dialogTag)
         }

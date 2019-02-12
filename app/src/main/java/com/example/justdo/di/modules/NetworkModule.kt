@@ -6,24 +6,28 @@ import com.example.justdo.App
 import com.example.justdo.domain.entities.server.BaseServerInfo
 import com.example.justdo.domain.entities.server.TokenInfo
 import com.example.justdo.domain.entities.tasks.TodoTask
-import com.example.justdo.model.data.TodoMapCache
+import com.example.justdo.model.data.db.TodoTasksDatabase
 import com.example.justdo.model.data.server.CachedServerResponse
 import com.example.justdo.model.data.server.ServerApi
 import com.example.justdo.model.data.server.deserializer.TodoTasksListDeserializer
 import com.example.justdo.model.data.server.deserializer.TokenInfoDeserializer
+import com.example.justdo.model.data.server.error.AuthorizationError
 import com.example.justdo.model.data.server.error.ServerError
+import com.example.justdo.model.data.storage.GlobalPreference
+import com.example.justdo.model.mapper.TodoTaskMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import okhttp3.*
+import okhttp3.Cache
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.io.File
-import java.lang.Exception
 import java.net.HttpURLConnection
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -34,12 +38,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideServerApi(retrofit: Retrofit, todoMapCache: TodoMapCache): ServerApi =
-        CachedServerResponse(retrofit.create(ServerApi::class.java), todoMapCache)
-
-    @Provides
-    @Singleton
-    fun provideTodoMapCache() = TodoMapCache()
+    fun provideServerApi(retrofit: Retrofit, database: TodoTasksDatabase, todoTaskMapper: TodoTaskMapper): ServerApi =
+        CachedServerResponse(retrofit.create(ServerApi::class.java), database, todoTaskMapper)
 
     @Provides
     @Singleton
@@ -58,12 +58,14 @@ class NetworkModule {
         context: Context,
         @Named("Logging Interceptor") loggingInterceptor: Interceptor,
         @Named("Error Handler Interceptor") errorHandlerInterceptor: Interceptor,
+        @Named("Auth Interceptor") authInterceptor: Interceptor,
         cache: Cache
     ): OkHttpClient {
         val okHttpBuilder = OkHttpClient().newBuilder()
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
+            .addNetworkInterceptor(authInterceptor)
             .addNetworkInterceptor(errorHandlerInterceptor)
             .cache(cache)
         //debug if not httpS
@@ -89,9 +91,24 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    @Named("Auth Interceptor")
+    fun provideAuthInterceptor(globalPreference: GlobalPreference) = Interceptor { chain ->
+        var request = chain.request()
+
+        if (request.header(AUTHORIZATION_HEADER) == null) {
+            globalPreference.token?.let {
+                request = request.newBuilder().addHeader(AUTHORIZATION_HEADER, it).build()
+            }
+        }
+        chain.proceed(request)
+    }
+
+    @Provides
+    @Singleton
     @Named("Error Handler Interceptor")
-    fun provideErrorHandlerInterceptor() = Interceptor { chain ->
-        val originalResponse = chain.proceed(chain.request())
+    fun provideErrorHandlerInterceptor(globalPreference: GlobalPreference) = Interceptor { chain ->
+        val request = chain.request()
+        val originalResponse = chain.proceed(request)
         val retResponse = originalResponse.newBuilder().build()
 
         val serverErrorMessage = "Server error\nTry again later"
@@ -112,9 +129,13 @@ class NetworkModule {
                     info.error ?: serverErrorMessage
                 )
             }
-        }
-        else {
-            throw ServerError(originalResponse.code(), serverErrorMessage)
+        } else {
+            if (originalResponse.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                globalPreference.token = null
+                throw AuthorizationError()
+            } else {
+                throw ServerError(originalResponse.code(), serverErrorMessage)
+            }
         }
         retResponse
     }
@@ -136,5 +157,7 @@ class NetworkModule {
         private val BYTE = 1L
         private val KILOBYTE = 1024L * BYTE
         private val MEGABYTE = 1024L * KILOBYTE
+
+        const val AUTHORIZATION_HEADER = "Authorization"
     }
 }

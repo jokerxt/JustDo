@@ -60,14 +60,14 @@ class LoginFragment : AuthFragment(), View.OnFocusChangeListener {
     }
 
     private fun loginChangeStateViews(isStartLogin: Boolean) {
-        loginEmail.apply { if(isStartLogin) disable() else enable() }
-        loginPassword.apply { if(isStartLogin) disable() else enable() }
-        forgotLoginPassword.apply { if(isStartLogin) disable() else enable() }
-        termsTextView.apply { if(isStartLogin) disable() else enable() }
-        privacyTextView.apply { if(isStartLogin) disable() else enable() }
-        choiceSignUpButton.apply { if(isStartLogin) disable() else enable() }
-        loginButton.apply { if(isStartLogin) hide() else show() }
-        loginProgress.apply { if(isStartLogin) show() else hide() }
+        loginEmail.apply { if (isStartLogin) disable() else enable() }
+        loginPassword.apply { if (isStartLogin) disable() else enable() }
+        forgotLoginPassword.apply { if (isStartLogin) disable() else enable() }
+        termsTextView.apply { if (isStartLogin) disable() else enable() }
+        privacyTextView.apply { if (isStartLogin) disable() else enable() }
+        choiceSignUpButton.apply { if (isStartLogin) disable() else enable() }
+        loginButton.apply { if (isStartLogin) hide() else show() }
+        loginProgress.apply { if (isStartLogin) show() else hide() }
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {

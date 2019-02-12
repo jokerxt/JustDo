@@ -2,6 +2,7 @@ package com.example.justdo.ui.tasks.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justdo.R
@@ -9,7 +10,10 @@ import com.example.justdo.domain.entities.Priority
 import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
 import com.example.justdo.domain.entities.tasks.TasksListMenu
 import com.example.justdo.domain.entities.tasks.TodoTask
+import com.example.justdo.extension.hide
+import com.example.justdo.extension.show
 import com.example.justdo.presentation.tasks.TasksViewModel
+import com.example.justdo.ui.AppActivity
 import com.example.justdo.ui.common.BaseFragment
 import com.example.justdo.ui.common.dialogs.MenuDialogFragment
 import com.example.justdo.ui.common.dialogs.OnDialogClickListener
@@ -34,66 +38,57 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val items = mutableListOf<TasksExpandableGroup>()
+        viewModel?.taskListLiveData?.observe(this, Observer { todoTasksList ->
+            loadTodoTasksProgress.hide(true)
 
-        val task = TodoTask(
-            0, "Купить жвачку",
-            "Тут много текста про жизнь и вообще", Priority.MEDIUM, LocalDateTime.parse("2019-12-03T12:40:00")
-        )
+            if (todoTasksList.isNullOrEmpty()) {
+                emptyListLabel.show()
+            } else {
+                recyclerView.apply {
+                    setHasFixedSize(true)
 
-        val task2 = TodoTask(
-            1, "Сходить в магазин",
-            "Пошли в магазин а?????", Priority.HIGH, LocalDateTime.parse("2019-12-03T08:25:00")
-        )
-
-        items.add(
-            TasksExpandableGroup(
-                task.dueDate.format(DateTimeFormatter.ofPattern("MMMM d, y")),
-                listOf(task, task2)
-            )
-        )
-
-        val task3 = TodoTask(
-            2, "Завершить макет",
-            "Доделать футер, исправить текст во втором", Priority.LOW, LocalDateTime.parse("2019-03-05T11:55:00")
-        )
-
-        items.add(
-            TasksExpandableGroup(
-                task3.dueDate.format(DateTimeFormatter.ofPattern("MMMM d, y")),
-                listOf(task3)
-            )
-        )
-
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-
-            adapter = TasksAdapter(items).apply {
-                itemClickListener = object : OnItemClickListener {
-                    override fun onItemClick(view: View, globalPos: Int) {
-                        //viewModel?.
+                    adapter = TasksAdapter(todoTasksList).apply {
+                        itemClickListener = object : OnItemClickListener {
+                            override fun onItemClick(view: View, globalPos: Int) {
+                                //viewModel?.
+                            }
+                        }
+//                        val callback = SwipeController()
+//                        val itemTouchHelper = ItemTouchHelper(callback)
+//                        itemTouchHelper.attachToRecyclerView(recyclerView)
                     }
+
+                    show()
                 }
-
-//                val callback = SwipeController()
-//                val itemTouchHelper = ItemTouchHelper(callback)
-//                itemTouchHelper.attachToRecyclerView(recyclerView)
-
             }
+        })
+
+        refreshListButton.setOnClickListener {
+            loadTodoTasksProgress.show()
+            refreshListButton.hide(true)
+            viewModel?.loadTasks()
         }
 
-        toDoMenuIcon.setOnClickListener {
+        viewModel?.responseError?.observe(this, Observer {
+            loadTodoTasksProgress.hide(true)
+            refreshListButton.show()
+            (activity as? AppActivity?)?.showErrorMessage(it)
+        })
 
+        viewModel?.loadTasks()
+
+        toDoMenuIcon.setOnClickListener {
             MenuDialogFragment.create(TasksListMenu.values().map { it.textResId })
                 .show(childFragmentManager, null)
         }
 
         addTaskButton.setOnClickListener { viewModel?.onAddTaskClick() }
+
+        toDoFilterIcon.setOnClickListener { }
     }
 
     override fun dialogItemClicked(tag: String?, position: Int) {
-        when(position) {
+        when (position) {
             TasksListMenu.ITEM_CHANGE_PASSWORD.ordinal -> viewModel?.onChangePasswordClick()
             TasksListMenu.ITEM_SIGN_OUT.ordinal -> viewModel?.onSignOutClick()
         }

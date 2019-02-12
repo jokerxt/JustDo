@@ -11,7 +11,7 @@ data class BaseServerInfo(
     var success: Boolean? = null,
 
     @Expose @SerializedName("error")
-    var error: String?= null,
+    var error: String? = null,
 
     @Expose @SerializedName("errorCode")
     var errorCode: Int? = null

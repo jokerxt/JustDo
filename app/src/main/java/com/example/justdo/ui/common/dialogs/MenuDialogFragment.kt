@@ -3,7 +3,6 @@ package com.example.justdo.ui.common.dialogs
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 import com.example.justdo.R
 import com.example.justdo.extension.hide
 import com.example.justdo.extension.inflate
@@ -21,7 +20,7 @@ class MenuDialogFragment : RootDialogFragment(), View.OnClickListener {
             dialogTag = getString(ARG_TAG, dialogTag)
 
             getIntArray(ARG_ITEMS)?.apply {
-                val lastItem = size-1
+                val lastItem = size - 1
                 forEachIndexed { index, resId ->
                     val itemView = menuItemsHolder.inflate(R.layout.item_menu)
                     itemView.findViewById<TextView>(R.id.menuItem).apply {
@@ -29,7 +28,7 @@ class MenuDialogFragment : RootDialogFragment(), View.OnClickListener {
                         setOnClickListener(this@MenuDialogFragment)
                     }
 
-                    if(index == lastItem)
+                    if (index == lastItem)
                         itemView.findViewById<View>(R.id.menuItemDivider).hide(true)
 
                     menuItemsHolder.addView(itemView)

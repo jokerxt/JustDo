@@ -2,18 +2,13 @@ package com.example.justdo.ui.tasks.list
 
 import android.annotation.SuppressLint
 import android.graphics.Canvas
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import android.view.MotionEvent
-import android.view.View
-import android.view.View.OnTouchListener
-import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
-import android.R.attr.centerY
-import android.R.attr.centerX
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
-import timber.log.Timber
+import android.view.MotionEvent
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
+import androidx.recyclerview.widget.RecyclerView
 
 
 internal enum class ButtonsState {
@@ -97,7 +92,15 @@ class SwipeController : ItemTouchHelper.Callback() {
                 }
 
                 if (event.action == MotionEvent.ACTION_UP) {
-                    super@SwipeController.onChildDraw(c, recyclerView, viewHolder, 0f, dY, actionState, isCurrentlyActive)
+                    super@SwipeController.onChildDraw(
+                        c,
+                        recyclerView,
+                        viewHolder,
+                        0f,
+                        dY,
+                        actionState,
+                        isCurrentlyActive
+                    )
                     recyclerView.setOnTouchListener { v, event -> false }
                     setItemsClickable(recyclerView, true)
                     swipeBack = false

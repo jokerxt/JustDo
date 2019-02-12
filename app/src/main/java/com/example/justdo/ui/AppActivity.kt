@@ -2,22 +2,26 @@ package com.example.justdo.ui
 
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.justdo.App
 import com.example.justdo.R
+import com.example.justdo.domain.entities.Priority
+import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
+import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.presentation.AppStarter
 import com.example.justdo.ui.common.BaseFragment
 import com.example.justdo.ui.common.dialogs.InfoDialogFragment
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
-import javax.inject.Named
 
 class AppActivity : AppCompatActivity() {
 
@@ -48,8 +52,7 @@ class AppActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             window.statusBarColor = Color.WHITE
-        }
-        else {
+        } else {
             window.statusBarColor = Color.BLACK
         }
 

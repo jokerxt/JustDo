@@ -8,7 +8,7 @@ data class TokenInfo(
     var clientId: String? = null,
 
     @Expose @SerializedName("access_token")
-    var accessToken: String?= null,
+    var accessToken: String? = null,
 
     @Expose @SerializedName("refresh_token")
     var refreshToken: String? = null

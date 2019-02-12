@@ -49,7 +49,9 @@ abstract class FlowFragment : BaseFragment() {
     }
 
     open fun animateTransaction(
-        currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction) { }
+        currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction
+    ) {
+    }
 
     override fun onBackPressed() {
         currentFragment?.onBackPressed() ?: super.onBackPressed()

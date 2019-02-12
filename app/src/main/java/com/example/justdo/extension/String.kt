@@ -20,6 +20,7 @@ fun String.isValidEmail(): Boolean {
 }
 
 fun String.isValidPassword(): Boolean {
-    val pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z].*[A-Z])(?=.*[~!@#\$%^&*()_+`\\-={}\\[\\]:;<>./\\\\])(?=\\S+\$).{8,15}\$"
+    val pattern =
+        "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z].*[A-Z])(?=.*[~!@#\$%^&*()_+`\\-={}\\[\\]:;<>./\\\\])(?=\\S+\$).{8,15}\$"
     return !isNullOrEmpty() && pattern.toRegex().matches(this)
 }

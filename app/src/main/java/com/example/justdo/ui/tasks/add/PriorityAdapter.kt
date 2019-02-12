@@ -4,7 +4,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.justdo.R
-import com.example.justdo.domain.entities.Priority
 import com.example.justdo.domain.entities.SelectedPriority
 import com.example.justdo.extension.inflate
 import com.example.justdo.ui.tasks.common.OnItemClickListener
@@ -23,7 +22,7 @@ class PriorityAdapter(val items: MutableList<SelectedPriority>) :
 
     override fun onBindViewHolder(holder: PriorityViewHolder, position: Int) {
         Timber.d(position.toString())
-        holder.bind(if(position < (itemCount-1)) items[position] else null)
+        holder.bind(if (position < (itemCount - 1)) items[position] else null)
     }
 
     override fun onItemClick(view: View, globalPos: Int) {

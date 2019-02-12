@@ -63,19 +63,19 @@ class SignupFragment : AuthFragment(), View.OnFocusChangeListener {
     }
 
     private fun signupChangeStateViews(isStartSignup: Boolean) {
-        signupPassword.apply { if(isStartSignup) disable() else enable() }
-        signupEmail.apply { if(isStartSignup) disable() else enable() }
-        signupConfirmPassword.apply { if(isStartSignup) disable() else enable() }
-        termsTextView.apply { if(isStartSignup) disable() else enable() }
-        privacyTextView.apply { if(isStartSignup) disable() else enable() }
-        choiceLogInButton.apply { if(isStartSignup) disable() else enable() }
-        signUpButton.apply { if(isStartSignup) hide() else show() }
-        signupProgress.apply { if(isStartSignup) show() else hide() }
+        signupPassword.apply { if (isStartSignup) disable() else enable() }
+        signupEmail.apply { if (isStartSignup) disable() else enable() }
+        signupConfirmPassword.apply { if (isStartSignup) disable() else enable() }
+        termsTextView.apply { if (isStartSignup) disable() else enable() }
+        privacyTextView.apply { if (isStartSignup) disable() else enable() }
+        choiceLogInButton.apply { if (isStartSignup) disable() else enable() }
+        signUpButton.apply { if (isStartSignup) hide() else show() }
+        signupProgress.apply { if (isStartSignup) show() else hide() }
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {
-        if(hasFocus) {
-            when(v.id) {
+        if (hasFocus) {
+            when (v.id) {
                 R.id.signupEmail -> signupEmailLayout.error = ""
                 R.id.signupPassword -> signupPasswordLayout.error = ""
                 R.id.signupConfirmPassword -> signupConfirmPasswordLayout.error = ""

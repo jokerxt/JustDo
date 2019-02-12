@@ -22,7 +22,7 @@ class ForgotPasswordFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         forgotPasswordEmail.setOnFocusChangeListener { _, hasFocus ->
-            if(hasFocus)
+            if (hasFocus)
                 forgotPasswordEmailInputLayout.error = ""
         }
 
@@ -54,10 +54,10 @@ class ForgotPasswordFragment : BaseFragment() {
     }
 
     private fun resetChangeStateViews(isStartReset: Boolean) {
-        forgotPasswordEmail.apply { if(isStartReset) disable() else enable() }
-        forgotPasswordArrowBack.apply { if(isStartReset) disable() else enable() }
-        sendRequestButton.apply { if(isStartReset) hide() else show() }
-        forgotPasswordProgress.apply { if(isStartReset) show() else hide() }
+        forgotPasswordEmail.apply { if (isStartReset) disable() else enable() }
+        forgotPasswordArrowBack.apply { if (isStartReset) disable() else enable() }
+        sendRequestButton.apply { if (isStartReset) hide() else show() }
+        forgotPasswordProgress.apply { if (isStartReset) show() else hide() }
     }
 
     override fun onBackPressed() {

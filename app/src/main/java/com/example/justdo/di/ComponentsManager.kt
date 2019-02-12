@@ -1,10 +1,10 @@
 package com.example.justdo.di
 
 import android.content.Context
-import com.example.justdo.di.modules.AppModule
-import com.example.justdo.di.components.DaggerAppComponent
 import com.example.justdo.di.components.AppComponent
+import com.example.justdo.di.components.DaggerAppComponent
 import com.example.justdo.di.components.FlowComponent
+import com.example.justdo.di.modules.AppModule
 import com.example.justdo.di.modules.FlowModule
 
 

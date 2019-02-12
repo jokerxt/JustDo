@@ -27,7 +27,7 @@ class PriorityViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.O
         selectedPriority?.apply {
             priorityIcon.setColorFilter(priority.color)
             priorityName.text = priority.type
-            if(isSelected )
+            if (isSelected)
                 checkedIcon.show()
             else
                 checkedIcon.hide(true)
@@ -35,7 +35,7 @@ class PriorityViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.O
 
         cardView.setOnClickListener(this@PriorityViewHolder)
 
-        if(selectedPriority == null) {
+        if (selectedPriority == null) {
             priorityIcon.hide(true)
             priorityName.hide(true)
             checkedIcon.hide(true)

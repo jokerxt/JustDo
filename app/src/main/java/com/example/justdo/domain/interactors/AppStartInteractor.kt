@@ -1,18 +1,12 @@
 package com.example.justdo.domain.interactors
 
-import android.content.Context
+import com.example.justdo.model.data.storage.GlobalPreference
 import javax.inject.Inject
 
 class AppStartInteractor @Inject constructor(
-    private val sessionRepository: Context
+    private val globalPreference: GlobalPreference
 ) {
-    fun signInToAccount(): Boolean {
-        val account = sessionRepository.applicationContext
-//        Toothpick.closeScope(DI.SERVER_SCOPE)
-//        Toothpick
-//            .openScopes(DI.APP_SCOPE, DI.SERVER_SCOPE)
-//            .installModules(ServerModule(account))
-        return account == null
-    }
+
+    fun signUpToAccount() = globalPreference.token != null
 
 }

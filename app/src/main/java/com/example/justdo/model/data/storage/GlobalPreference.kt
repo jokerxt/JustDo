@@ -6,8 +6,7 @@ import com.google.gson.Gson
 import javax.inject.Inject
 
 class GlobalPreference @Inject constructor(
-    private val context: Context,
-    private val gson: Gson
+    private val context: Context
 ) {
 
     private fun getSharedPreferences(prefsName: String) =
@@ -27,7 +26,10 @@ class GlobalPreference @Inject constructor(
         }
 
     var token: String?
-        get() = authPrefs.getString(KEY_TOKEN, null)
+        get() {
+            val token = authPrefs.getString(KEY_TOKEN, null)
+            return token?.let { "Bearer $it" }
+        }
         set(value) {
             authPrefs.edit().putString(KEY_TOKEN, value).apply()
         }

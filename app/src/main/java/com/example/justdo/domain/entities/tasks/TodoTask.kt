@@ -1,7 +1,6 @@
 package com.example.justdo.domain.entities.tasks
 
 import android.os.Parcel
-import android.os.Parcelable
 import com.example.justdo.domain.entities.Priority
 import com.example.justdo.helpers.KParcelable
 import com.example.justdo.helpers.parcelableCreator
@@ -27,14 +26,15 @@ data class TodoTask(
 ) : KParcelable {
 
     companion object {
-        @JvmField val CREATOR = parcelableCreator(::TodoTask)
+        @JvmField
+        val CREATOR = parcelableCreator(::TodoTask)
     }
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readString(),
-        parcel.readSerializable() as? Priority?  ?: Priority.NO,
+        parcel.readSerializable() as? Priority? ?: Priority.NO,
         parcel.readSerializable() as? LocalDateTime? ?: LocalDateTime.now()
     )
 

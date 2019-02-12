@@ -2,14 +2,16 @@ package com.example.justdo.model.data.server
 
 import com.example.justdo.domain.entities.server.*
 import com.example.justdo.domain.entities.tasks.TodoTask
-import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ServerApi {
 
     companion object {
-        private const val API_VERSION = "v2"
+        private const val API_VERSION = "v1"
 
         const val GET__GET_TERMS_CONDITIONS = "/api/$API_VERSION/terms"
         const val GET__GET_PRIVACY_POLICY = "/api/$API_VERSION/privacy"
@@ -26,8 +28,6 @@ interface ServerApi {
         const val POST__FORGOT_PASSWORD = "/api/$API_VERSION/password/forgot"
 
         const val QUERY_TODO_TASK_ID = "todo_task_id"
-
-        const val AUTHORIZATION_HEADER = "Authorization"
     }
 
     @POST(POST__GET_TOKEN)
@@ -46,8 +46,7 @@ interface ServerApi {
     fun getTermsConditions(): Single<Map<String, String>>
 
     @POST(POST__AUTH_CHANGE_PASSWORD)
-    fun changePassword(@Header(AUTHORIZATION_HEADER) typedToken: String,
-                       @Body body: AuthChangePasswordRequest): Single<BaseServerInfo>
+    fun changePassword(@Body body: AuthChangePasswordRequest): Single<BaseServerInfo>
 
     @POST(POST__CHANGE_PASSWORD)
     fun changePassword(@Body body: ChangePasswordRequest): Single<BaseServerInfo>
@@ -56,14 +55,12 @@ interface ServerApi {
     fun forgotPassword(@Body body: ForgotPasswordRequest): Single<BaseServerInfo>
 
     @GET(GET__GET_TODO_LIST)
-    fun getTodoTasksList(@Header(AUTHORIZATION_HEADER) typedToken: String): Single<Array<TodoTask>>
+    fun getTodoTasksList(): Single<Array<TodoTask>>
 
     @POST(POST__TODO_ADD)
-    fun addTodoTask(@Header(AUTHORIZATION_HEADER) typedToken: String,
-                    @Body body: TodoTask): Completable
+    fun addTodoTask(@Body body: TodoTask): Single<BaseServerInfo>
 
     @POST(POST__TODO_DELETE)
-    fun deleteTodoTask(@Header(AUTHORIZATION_HEADER) typedToken: String,
-                       @Query(QUERY_TODO_TASK_ID) id: Long): Completable
+    fun deleteTodoTask(@Query(QUERY_TODO_TASK_ID) id: Long): Single<BaseServerInfo>
 
 }

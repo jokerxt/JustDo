@@ -36,7 +36,7 @@ fun View.show() {
 }
 
 fun View.hide(isGone: Boolean = false) {
-    visibility = if(isGone) View.GONE else View.INVISIBLE
+    visibility = if (isGone) View.GONE else View.INVISIBLE
 }
 
 fun View.enable() {

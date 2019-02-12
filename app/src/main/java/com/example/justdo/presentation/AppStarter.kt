@@ -9,11 +9,11 @@ class AppStarter @Inject constructor(
     private val appStartInteractor: AppStartInteractor,
     private val router: Router
 ) {
-    private val isSignedIn = appStartInteractor.signInToAccount()
+    private val isSignedUp = appStartInteractor.signUpToAccount()
 
     fun start() {
         val rootScreen =
-            if (isSignedIn) Screens.TasksFlow
+            if (isSignedUp) Screens.TasksFlow
             else Screens.AuthFlow
 
         router.newRootScreen(rootScreen)

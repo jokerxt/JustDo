@@ -16,9 +16,7 @@ class AuthRepository @Inject constructor(
 ) {
 
     fun login(email: String, password: String) = api
-        .getToken(TokenRequest(email, password, "android",
-            GRANT_TYPE_PASSWORD
-        ))
+        .getToken(TokenRequest(email, password, "android", GRANT_TYPE_PASSWORD))
         .subscribeOn(schedulers.io())
         .observeOn(schedulers.ui())
         .doOnSuccess {
@@ -28,7 +26,7 @@ class AuthRepository @Inject constructor(
     fun signup(email: String, password: String) = api
         .registration(RegUserRequest(email, password))
         .subscribeOn(schedulers.io())
-        .observeOn(schedulers.io())
+        .observeOn(schedulers.computation())
         .flatMap { login(email, password) }
         .observeOn(schedulers.ui())
         .doOnSuccess { globalPreference.tokenInfo = it }
@@ -45,7 +43,6 @@ class AuthRepository @Inject constructor(
 
     companion object {
         private const val GRANT_TYPE_PASSWORD = "password"
-        private const val GRANT_TYPE_REFRESH_TOKEN = "refresh_token"
     }
 
 }

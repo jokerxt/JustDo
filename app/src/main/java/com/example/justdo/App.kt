@@ -15,7 +15,7 @@ class App : Application() {
         lateinit var componentsManager: ComponentsManager
             private set
 
-        const val SERVER_ADDRESS = "http://blythe.dev.unit6.ru"
+        const val SERVER_ADDRESS = "http://justdo.net"
     }
 
     override fun onCreate() {
@@ -48,7 +48,7 @@ class App : Application() {
     }
 
     private fun initFabric() {
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             //
         }
     }

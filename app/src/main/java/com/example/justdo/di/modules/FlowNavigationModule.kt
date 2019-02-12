@@ -5,10 +5,7 @@ import com.example.justdo.system.FlowRouter
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
-import javax.inject.Named
-import javax.inject.Qualifier
 
 @Module
 class FlowNavigationModule {
