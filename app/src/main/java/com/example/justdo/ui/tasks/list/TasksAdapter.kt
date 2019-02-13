@@ -17,6 +17,7 @@ class TasksAdapter(groups: List<TasksExpandableGroup>) :
 
     var itemClickListener: OnItemClickListener? = null
 
+
     override fun onCreateGroupViewHolder(parent: ViewGroup, viewType: Int) =
         DateGroupViewHolder(parent.inflate(R.layout.list_item_date_group))
 

@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justdo.R
-import com.example.justdo.domain.entities.Priority
 import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
 import com.example.justdo.domain.entities.tasks.TasksListMenu
-import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.extension.hide
 import com.example.justdo.extension.show
 import com.example.justdo.presentation.tasks.TasksViewModel
@@ -19,8 +16,6 @@ import com.example.justdo.ui.common.dialogs.MenuDialogFragment
 import com.example.justdo.ui.common.dialogs.OnDialogClickListener
 import com.example.justdo.ui.tasks.common.OnItemClickListener
 import kotlinx.android.synthetic.main.fragment_tasks_list.*
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
 
 
 class TasksListFragment : BaseFragment(), OnDialogClickListener {
@@ -35,47 +30,61 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
         viewModel?.onBackPressed()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupActionHandlers()
+        viewModel?.loadTasks()
+    }
 
+    private fun setupActionHandlers() {
         viewModel?.taskListLiveData?.observe(this, Observer { todoTasksList ->
-            loadTodoTasksProgress.hide(true)
-
-            if (todoTasksList.isNullOrEmpty()) {
-                emptyListLabel.show()
-            } else {
-                recyclerView.apply {
-                    setHasFixedSize(true)
-
-                    adapter = TasksAdapter(todoTasksList).apply {
-                        itemClickListener = object : OnItemClickListener {
-                            override fun onItemClick(view: View, globalPos: Int) {
-                                //viewModel?.
-                            }
-                        }
-//                        val callback = SwipeController()
-//                        val itemTouchHelper = ItemTouchHelper(callback)
-//                        itemTouchHelper.attachToRecyclerView(recyclerView)
-                    }
-
-                    show()
-                }
-            }
+            handleViewState(todoTasksList)
         })
-
-        refreshListButton.setOnClickListener {
-            loadTodoTasksProgress.show()
-            refreshListButton.hide(true)
-            viewModel?.loadTasks()
-        }
 
         viewModel?.responseError?.observe(this, Observer {
             loadTodoTasksProgress.hide(true)
             refreshListButton.show()
             (activity as? AppActivity?)?.showErrorMessage(it)
         })
+    }
 
-        viewModel?.loadTasks()
+    private fun handleViewState(todoTasksList: List<TasksExpandableGroup>) {
+        loadTodoTasksProgress.hide(true)
+
+        if (todoTasksList.isNullOrEmpty()) {
+            emptyListLabel.show()
+        } else {
+            recyclerView.apply {
+                setHasFixedSize(true)
+                adapter = TasksAdapter(todoTasksList).apply {
+                    itemClickListener = object : OnItemClickListener {
+                        override fun onItemClick(view: View, globalPos: Int) {
+                            //viewModel?.
+                        }
+                    }
+                }
+                show()
+            }
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel?.taskListLiveData?.apply {
+            if (hasObservers()) {
+                value?.also { handleViewState(it) }
+            } else {
+                setupActionHandlers()
+                viewModel?.loadTasks()
+            }
+        }
+
+        refreshListButton.setOnClickListener {
+            loadTodoTasksProgress.show()
+            refreshListButton.hide(true)
+            viewModel?.loadTasks()
+        }
 
         toDoMenuIcon.setOnClickListener {
             MenuDialogFragment.create(TasksListMenu.values().map { it.textResId })

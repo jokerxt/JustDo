@@ -20,6 +20,22 @@ class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDial
         parentFragment?.let { ViewModelProviders.of(it).get(AuthViewModel::class.java) }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel?.responseError?.observe(this, Observer {
+            resetChangeStateViews(false)
+            (activity as? AppActivity?)?.showErrorMessage(it)
+        })
+
+        viewModel?.isPasswordChanged?.observe(this, Observer {
+            (activity as? AppActivity?)?.showMessage(
+                getString(R.string.success),
+                getString(R.string.password_success_changed)
+            )
+        })
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -59,18 +75,6 @@ class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDial
             expandTouchArea(15f)
             setOnClickListener { onBackPressed() }
         }
-
-        viewModel?.responseError?.observe(this, Observer {
-            resetChangeStateViews(false)
-            (activity as? AppActivity?)?.showErrorMessage(it)
-        })
-
-        viewModel?.isPasswordChanged?.observe(this, Observer {
-            (activity as? AppActivity?)?.showMessage(
-                getString(R.string.success),
-                getString(R.string.password_success_changed)
-            )
-        })
     }
 
     private fun resetChangeStateViews(isStartReset: Boolean) {

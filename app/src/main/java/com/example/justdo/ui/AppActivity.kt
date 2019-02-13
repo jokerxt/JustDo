@@ -9,14 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.justdo.App
 import com.example.justdo.R
-import com.example.justdo.domain.entities.Priority
-import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
-import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.presentation.AppStarter
 import com.example.justdo.ui.common.BaseFragment
 import com.example.justdo.ui.common.dialogs.InfoDialogFragment
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator

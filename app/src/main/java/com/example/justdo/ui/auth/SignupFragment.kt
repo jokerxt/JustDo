@@ -3,10 +3,8 @@ package com.example.justdo.ui.auth
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import com.example.justdo.R
 import com.example.justdo.extension.*
-import com.example.justdo.ui.AppActivity
 import kotlinx.android.synthetic.main.fragment_auth_signup.*
 import kotlinx.android.synthetic.main.layout_auth_accessing_agree.*
 import kotlinx.android.synthetic.main.layout_auth_header_choice_auth.*
@@ -52,25 +50,20 @@ class SignupFragment : AuthFragment(), View.OnFocusChangeListener {
                 return@setOnClickListener
             }
 
-            signupChangeStateViews(true)
+            changeStateViews(true)
             viewModel?.onSignupClick(email, password)
         }
-
-        viewModel?.responseError?.observe(this, Observer {
-            signupChangeStateViews(false)
-            (activity as? AppActivity?)?.showErrorMessage(it)
-        })
     }
 
-    private fun signupChangeStateViews(isStartSignup: Boolean) {
-        signupPassword.apply { if (isStartSignup) disable() else enable() }
-        signupEmail.apply { if (isStartSignup) disable() else enable() }
-        signupConfirmPassword.apply { if (isStartSignup) disable() else enable() }
-        termsTextView.apply { if (isStartSignup) disable() else enable() }
-        privacyTextView.apply { if (isStartSignup) disable() else enable() }
-        choiceLogInButton.apply { if (isStartSignup) disable() else enable() }
-        signUpButton.apply { if (isStartSignup) hide() else show() }
-        signupProgress.apply { if (isStartSignup) show() else hide() }
+    override fun changeStateViews(state: Boolean) {
+        signupPassword.apply { if (state) disable() else enable() }
+        signupEmail.apply { if (state) disable() else enable() }
+        signupConfirmPassword.apply { if (state) disable() else enable() }
+        termsTextView.apply { if (state) disable() else enable() }
+        privacyTextView.apply { if (state) disable() else enable() }
+        choiceLogInButton.apply { if (state) disable() else enable() }
+        signUpButton.apply { if (state) hide() else show() }
+        signupProgress.apply { if (state) show() else hide() }
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {

@@ -18,6 +18,15 @@ class ForgotPasswordFragment : BaseFragment() {
         parentFragment?.let { ViewModelProviders.of(it).get(AuthViewModel::class.java) }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel?.responseError?.observe(this, Observer {
+            resetChangeStateViews(false)
+            (activity as? AppActivity?)?.showErrorMessage(it)
+        })
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -41,11 +50,6 @@ class ForgotPasswordFragment : BaseFragment() {
             resetChangeStateViews(true)
             viewModel?.onForgotPasswordSendRequestClick(email)
         }
-
-        viewModel?.responseError?.observe(this, Observer {
-            resetChangeStateViews(false)
-            (activity as? AppActivity?)?.showErrorMessage(it)
-        })
 
         forgotPasswordArrowBack.apply {
             expandTouchArea(15f)

@@ -2,7 +2,6 @@ package com.example.justdo.model.data.storage
 
 import android.content.Context
 import com.example.justdo.domain.entities.server.TokenInfo
-import com.google.gson.Gson
 import javax.inject.Inject
 
 class GlobalPreference @Inject constructor(
