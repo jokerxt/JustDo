@@ -26,6 +26,8 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
         parentFragment?.let { ViewModelProviders.of(it).get(TasksViewModel::class.java) }
     }
 
+    private var isFirstStart = false
+
     override fun onBackPressed() {
         viewModel?.onBackPressed()
     }
@@ -34,6 +36,7 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
         super.onCreate(savedInstanceState)
         setupActionHandlers()
         viewModel?.loadTasks()
+        isFirstStart = true
     }
 
     private fun setupActionHandlers() {
@@ -50,6 +53,8 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
 
     private fun handleViewState(todoTasksList: List<TasksExpandableGroup>?) {
         loadTodoTasksProgress.hide(true)
+        refreshListButton.hide(true)
+        emptyListLabel.hide(true)
 
         if (todoTasksList.isNullOrEmpty()) {
             emptyListLabel.show()
@@ -72,11 +77,21 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel?.taskListLiveData?.apply {
-            if (hasObservers()) {
-                value?.also { handleViewState(it) }
+        if(!isFirstStart) {
+            if(viewModel?.taskListLiveData?.value != null) {
+                handleViewState(viewModel?.taskListLiveData?.value)
+            }
+            else {
+                if (viewModel?.responseError?.value == null) {
+                    handleViewState(null)
+                } else {
+                    loadTodoTasksProgress.hide(true)
+                    refreshListButton.show()
+                }
             }
         }
+
+        isFirstStart = false
 
         refreshListButton.setOnClickListener {
             loadTodoTasksProgress.show()
