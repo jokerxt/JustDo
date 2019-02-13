@@ -39,7 +39,7 @@ class TasksInteractor @Inject constructor(
             todoTasksGroup.add(TasksExpandableGroup(it.key, it.value))
         }
 
-        todoTasksGroup.sortByDescending {
+        todoTasksGroup.sortBy {
             it.items.first().dueDate.toEpochSecond(ZoneOffset.UTC)
         }
 
@@ -47,7 +47,7 @@ class TasksInteractor @Inject constructor(
     }
 
     companion object {
-        private const val HEADER_DATE_PATTERN = "MMMM d, y"
+        const val HEADER_DATE_PATTERN = "MMMM d, y"
     }
 
 }
