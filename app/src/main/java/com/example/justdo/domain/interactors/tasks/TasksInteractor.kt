@@ -3,6 +3,7 @@ package com.example.justdo.domain.interactors.tasks
 import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.model.data.tasks.TasksExpandableGroup
 import com.example.justdo.model.repository.tasks.TasksRepository
+import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
@@ -36,6 +37,10 @@ class TasksInteractor @Inject constructor(
 
         map.forEach {
             todoTasksGroup.add(TasksExpandableGroup(it.key, it.value))
+        }
+
+        todoTasksGroup.sortByDescending {
+            it.items.first().dueDate.toEpochSecond(ZoneOffset.UTC)
         }
 
         todoTasksGroup
