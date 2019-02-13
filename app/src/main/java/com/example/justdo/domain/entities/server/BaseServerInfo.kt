@@ -13,6 +13,6 @@ data class BaseServerInfo(
     @Expose @SerializedName("error")
     var error: String? = null,
 
-    @Expose @SerializedName("errorCode")
+    @Expose @SerializedName("error_code")
     var errorCode: Int? = null
 )

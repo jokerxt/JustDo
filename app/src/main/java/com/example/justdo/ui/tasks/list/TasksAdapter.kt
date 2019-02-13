@@ -3,9 +3,9 @@ package com.example.justdo.ui.tasks.list
 import android.view.View
 import android.view.ViewGroup
 import com.example.justdo.R
-import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
 import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.extension.inflate
+import com.example.justdo.model.data.tasks.TasksExpandableGroup
 import com.example.justdo.ui.tasks.common.OnItemClickListener
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup

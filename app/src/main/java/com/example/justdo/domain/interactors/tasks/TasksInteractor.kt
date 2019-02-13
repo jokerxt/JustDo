@@ -1,7 +1,7 @@
 package com.example.justdo.domain.interactors.tasks
 
-import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
 import com.example.justdo.domain.entities.tasks.TodoTask
+import com.example.justdo.model.data.tasks.TasksExpandableGroup
 import com.example.justdo.model.repository.tasks.TasksRepository
 import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
@@ -10,10 +10,20 @@ class TasksInteractor @Inject constructor(
     private val tasksRepository: TasksRepository
 ) {
 
-    fun getTasksList() = tasksRepository.getTodoTasksList().map { todoTasksArray ->
+    fun getTasksList() = tasksRepository
+        .getTodoTasksList()
+        .map { transformToExpandableGroup(it) }
+
+    fun addNewTask(todoTask: TodoTask) = tasksRepository
+        .addNewTodoTask(todoTask)
+        .map { transformToExpandableGroup(it.toTypedArray()) }
+
+    fun signOut() = tasksRepository.signOut()
+
+    private fun transformToExpandableGroup(todoTasksArray: Array<TodoTask>) = todoTasksArray.run {
         val todoTasksGroup = mutableListOf<TasksExpandableGroup>()
         val map = HashMap<String, MutableList<TodoTask>>()
-        val dateFormatter = DateTimeFormatter.ofPattern("MMMM d, y")
+        val dateFormatter = DateTimeFormatter.ofPattern(HEADER_DATE_PATTERN)
 
         todoTasksArray.forEach { todoTask ->
             val key = todoTask.dueDate.format(dateFormatter)
@@ -30,6 +40,8 @@ class TasksInteractor @Inject constructor(
         todoTasksGroup
     }
 
-    fun signOut() = tasksRepository.signOut()
+    companion object {
+        private const val HEADER_DATE_PATTERN = "MMMM d, y"
+    }
 
 }

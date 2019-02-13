@@ -25,7 +25,7 @@ class TaskViewHolder(private val view: View) : ChildViewHolder(view), View.OnCli
     fun bind(todoTask: TodoTask) {
         name.text = todoTask.name
         desc.text = todoTask.desc
-        time.text = todoTask.dueDate.format(DateTimeFormatter.ofPattern("HH:mm"))
+        time.text = todoTask.dueDate.format(DateTimeFormatter.ofPattern(TODO_TASK_TIME_PATTERN))
         priorityIcon.setColorFilter(todoTask.priority.color)
         cardView.setOnClickListener(this)
     }
@@ -33,6 +33,10 @@ class TaskViewHolder(private val view: View) : ChildViewHolder(view), View.OnCli
     override fun onClick(v: View) {
         checkBox.toggle()
         itemClickListener?.onItemClick(v, adapterPosition)
+    }
+
+    companion object {
+        private const val TODO_TASK_TIME_PATTERN = "HH:mm"
     }
 
 }

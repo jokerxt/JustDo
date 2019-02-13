@@ -8,12 +8,14 @@ class GlobalPreference @Inject constructor(
     private val context: Context
 ) {
 
+    companion object {
+        private const val TOKEN_DATA = "token_data"
+        private const val KEY_TOKEN = "token"
+        private const val KEY_REFRESH_TOKEN = "refresh_token"
+    }
+
     private fun getSharedPreferences(prefsName: String) =
         context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
-
-    private val TOKEN_DATA = "token_data"
-    private val KEY_TOKEN = "token"
-    private val KEY_REFRESH_TOKEN = "refresh_token"
 
     private val authPrefs by lazy { getSharedPreferences(TOKEN_DATA) }
 
@@ -38,4 +40,5 @@ class GlobalPreference @Inject constructor(
         set(value) {
             authPrefs.edit().putString(KEY_REFRESH_TOKEN, value).apply()
         }
+
 }

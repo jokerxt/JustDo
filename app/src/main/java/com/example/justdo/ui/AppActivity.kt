@@ -11,7 +11,7 @@ import com.example.justdo.App
 import com.example.justdo.R
 import com.example.justdo.presentation.AppStarter
 import com.example.justdo.ui.common.BaseFragment
-import com.example.justdo.ui.common.dialogs.InfoDialogFragment
+import com.example.justdo.ui.dialogs.InfoDialogFragment
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -44,6 +44,7 @@ class AppActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
+        // setup StatusBar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             window.statusBarColor = Color.WHITE

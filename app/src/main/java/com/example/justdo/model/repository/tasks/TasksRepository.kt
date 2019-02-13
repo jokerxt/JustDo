@@ -1,17 +1,23 @@
 package com.example.justdo.model.repository.tasks
 
 import com.example.justdo.domain.entities.server.RefreshTokenRequest
+import com.example.justdo.domain.entities.tasks.TodoTask
+import com.example.justdo.model.data.db.TodoTasksDatabase
 import com.example.justdo.model.data.repository.TokenInvalidError
 import com.example.justdo.model.data.server.ServerApi
 import com.example.justdo.model.data.server.error.AuthorizationError
 import com.example.justdo.model.data.storage.GlobalPreference
+import com.example.justdo.model.mapper.TodoTaskMapper
 import com.example.justdo.system.SchedulersProvider
+import io.reactivex.Single
 import javax.inject.Inject
 
 class TasksRepository @Inject constructor(
     private val api: ServerApi,
+    private val database: TodoTasksDatabase,
     private val globalPreference: GlobalPreference,
-    private val schedulers: SchedulersProvider
+    private val schedulers: SchedulersProvider,
+    private val todoTaskMapper: TodoTaskMapper
 ) {
 
     fun refreshToken() = api
@@ -40,6 +46,14 @@ class TasksRepository @Inject constructor(
             }
         }
         .observeOn(schedulers.computation())
+
+    fun addNewTodoTask(todoTask: TodoTask) = Single
+        .just(todoTaskMapper.entityToDb(todoTask))
+        .subscribeOn(schedulers.io())
+        .map { database.todoTasks().putTodoTask(it) }
+        .map { database.todoTasks().allTodoTasks }
+        .map { it.map { todoTaskMapper.dbToEntity(it) } }
+        .observeOn(schedulers.ui())
 
     fun signOut() {
         globalPreference.token = null

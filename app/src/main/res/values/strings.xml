@@ -34,5 +34,10 @@
     <string name="sign_out">Sign out</string>
     <string name="empty_tap_for_add_new_task"><![CDATA[ Empty\nTap + for add new task ]]></string>
     <string name="retry_request">Retry request!</string>
+    <string name="run_to">Run To</string>
+    <string name="reminder">Reminder</string>
+    <string name="q_save_changes">Do you want to save changes?</string>
+    <string name="enter_title">Enter title…</string>
+    <string name="enter_description">Enter description…</string>
 
 </resources>

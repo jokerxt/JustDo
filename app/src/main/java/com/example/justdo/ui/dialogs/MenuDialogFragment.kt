@@ -1,4 +1,4 @@
-package com.example.justdo.ui.common.dialogs
+package com.example.justdo.ui.dialogs
 
 import android.os.Bundle
 import android.view.View

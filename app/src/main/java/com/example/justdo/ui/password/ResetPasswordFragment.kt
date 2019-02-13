@@ -9,7 +9,7 @@ import com.example.justdo.extension.*
 import com.example.justdo.presentation.auth.AuthViewModel
 import com.example.justdo.ui.AppActivity
 import com.example.justdo.ui.common.BaseFragment
-import com.example.justdo.ui.common.dialogs.OnDialogClickListener
+import com.example.justdo.ui.dialogs.OnDialogClickListener
 import kotlinx.android.synthetic.main.fragment_reset_password.*
 
 class ResetPasswordFragment : BaseFragment(), View.OnFocusChangeListener, OnDialogClickListener {

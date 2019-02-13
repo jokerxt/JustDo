@@ -1,4 +1,4 @@
-package com.example.justdo.domain.entities.tasks
+package com.example.justdo.model.data.tasks
 
 import com.example.justdo.R
 

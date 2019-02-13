@@ -6,9 +6,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.justdo.R
-import com.example.justdo.domain.entities.SelectedPriority
 import com.example.justdo.extension.hide
 import com.example.justdo.extension.show
+import com.example.justdo.model.data.tasks.SelectedPriority
 import com.example.justdo.ui.tasks.common.OnItemClickListener
 
 class PriorityViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {

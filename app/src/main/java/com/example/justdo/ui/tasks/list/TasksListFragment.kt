@@ -5,15 +5,15 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.justdo.R
-import com.example.justdo.domain.entities.tasks.TasksExpandableGroup
-import com.example.justdo.domain.entities.tasks.TasksListMenu
 import com.example.justdo.extension.hide
 import com.example.justdo.extension.show
+import com.example.justdo.model.data.tasks.TasksExpandableGroup
+import com.example.justdo.model.data.tasks.TasksListMenu
 import com.example.justdo.presentation.tasks.TasksViewModel
 import com.example.justdo.ui.AppActivity
 import com.example.justdo.ui.common.BaseFragment
-import com.example.justdo.ui.common.dialogs.MenuDialogFragment
-import com.example.justdo.ui.common.dialogs.OnDialogClickListener
+import com.example.justdo.ui.dialogs.MenuDialogFragment
+import com.example.justdo.ui.dialogs.OnDialogClickListener
 import com.example.justdo.ui.tasks.common.OnItemClickListener
 import kotlinx.android.synthetic.main.fragment_tasks_list.*
 
@@ -48,7 +48,7 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
         })
     }
 
-    private fun handleViewState(todoTasksList: List<TasksExpandableGroup>) {
+    private fun handleViewState(todoTasksList: List<TasksExpandableGroup>?) {
         loadTodoTasksProgress.hide(true)
 
         if (todoTasksList.isNullOrEmpty()) {
@@ -59,6 +59,7 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
                 adapter = TasksAdapter(todoTasksList).apply {
                     itemClickListener = object : OnItemClickListener {
                         override fun onItemClick(view: View, globalPos: Int) {
+                            //open task
                             //viewModel?.
                         }
                     }
@@ -74,9 +75,6 @@ class TasksListFragment : BaseFragment(), OnDialogClickListener {
         viewModel?.taskListLiveData?.apply {
             if (hasObservers()) {
                 value?.also { handleViewState(it) }
-            } else {
-                setupActionHandlers()
-                viewModel?.loadTasks()
             }
         }
 
