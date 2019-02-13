@@ -4,6 +4,7 @@ import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.model.data.tasks.TasksExpandableGroup
 import com.example.justdo.model.repository.tasks.TasksRepository
 import org.threeten.bp.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
 
 class TasksInteractor @Inject constructor(
@@ -23,7 +24,7 @@ class TasksInteractor @Inject constructor(
     private fun transformToExpandableGroup(todoTasksArray: Array<TodoTask>) = todoTasksArray.run {
         val todoTasksGroup = mutableListOf<TasksExpandableGroup>()
         val map = HashMap<String, MutableList<TodoTask>>()
-        val dateFormatter = DateTimeFormatter.ofPattern(HEADER_DATE_PATTERN)
+        val dateFormatter = DateTimeFormatter.ofPattern(HEADER_DATE_PATTERN, Locale.US)
 
         todoTasksArray.forEach { todoTask ->
             val key = todoTask.dueDate.format(dateFormatter)

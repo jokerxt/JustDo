@@ -1,4 +1,4 @@
-package com.example.justdo.ui.tasks
+package com.example.justdo.ui.tasks.add
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -12,12 +12,12 @@ import com.example.justdo.presentation.tasks.TasksViewModel
 import com.example.justdo.ui.common.BaseFragment
 import com.example.justdo.ui.dialogs.ChoiceDialogFragment
 import com.example.justdo.ui.dialogs.OnDialogClickListener
-import com.example.justdo.ui.tasks.add.PriorityAdapter
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
 import org.threeten.bp.format.DateTimeFormatter
+import java.util.*
 
 
 class AddTaskFragment : BaseFragment(), OnDialogClickListener {
@@ -55,7 +55,7 @@ class AddTaskFragment : BaseFragment(), OnDialogClickListener {
         okAddTask.setOnClickListener { dialogPositiveClicked(null) }
 
         date.apply {
-            val formatter = DateTimeFormatter.ofPattern(TODO_TASK_DATE_PATTERN)
+            val formatter = DateTimeFormatter.ofPattern(TODO_TASK_DATE_PATTERN, Locale.US)
             text = todoTaskDateTime.format(formatter)
 
             setOnClickListener {
@@ -63,18 +63,18 @@ class AddTaskFragment : BaseFragment(), OnDialogClickListener {
                 DatePickerDialog(context, { _, year, month, dayOfMonth ->
                     todoTaskDateTime = LocalDateTime.of(
                         year,
-                        month,
+                        month+1,
                         dayOfMonth,
                         todoTaskDateTime.hour,
                         todoTaskDateTime.minute
                     )
                     text = todoTaskDateTime.format(formatter)
-                }, currentDate.year, currentDate.monthValue, currentDate.dayOfMonth).show()
+                }, currentDate.year, currentDate.monthValue-1, currentDate.dayOfMonth).show()
             }
         }
 
         time.apply {
-            val formatter = DateTimeFormatter.ofPattern(TODO_TASK_TIME_PATTERN)
+            val formatter = DateTimeFormatter.ofPattern(TODO_TASK_TIME_PATTERN, Locale.US)
             text = todoTaskDateTime.format(formatter)
 
             setOnClickListener {

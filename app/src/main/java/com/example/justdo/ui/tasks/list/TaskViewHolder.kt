@@ -10,6 +10,7 @@ import com.example.justdo.domain.entities.tasks.TodoTask
 import com.example.justdo.ui.tasks.common.OnItemClickListener
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
 import org.threeten.bp.format.DateTimeFormatter
+import java.util.*
 
 class TaskViewHolder(private val view: View) : ChildViewHolder(view), View.OnClickListener {
 
@@ -25,7 +26,7 @@ class TaskViewHolder(private val view: View) : ChildViewHolder(view), View.OnCli
     fun bind(todoTask: TodoTask) {
         name.text = todoTask.name
         desc.text = todoTask.desc
-        time.text = todoTask.dueDate.format(DateTimeFormatter.ofPattern(TODO_TASK_TIME_PATTERN))
+        time.text = todoTask.dueDate.format(DateTimeFormatter.ofPattern(TODO_TASK_TIME_PATTERN, Locale.US))
         priorityIcon.setColorFilter(todoTask.priority.color)
         cardView.setOnClickListener(this)
     }
